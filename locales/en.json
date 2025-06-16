@@ -1,0 +1,83 @@
+{
+  "common": {
+    "price": "{price} {currency}",
+    "retry": "Retry"
+  },
+  "checkout": {
+    "checkout": "checkout",
+    "orderSummary": "Order Summary",
+    "quantity": "Quantity",
+    "price": "Price",
+    "total": "Total",
+    "completeYourOrder": "Complete Your Order",
+    "personalDetails": "Personal Details",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneNumber": "Number",
+    "email": "Email",
+    "shippingAddress": "Shipping Address",
+    "address1": "Address 1",
+    "state": "State",
+    "city": "City",
+    "confirmOrder": "Confirm Order",
+    "orderFailed": "Failed to submit order, please try again later.",
+    "placeholder": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "example@email.com",
+      "phoneNumber": "12 345 648",
+      "address": "Address",
+      "city": "Salwa",
+      "state": "Hawalli"
+    }
+  },
+  "cart": {
+    "cart": "Cart",
+    "yourCart": "My Shopping Cart",
+    "emptyCart": "Your cart is currently empty.",
+    "quantity": "Quantity",
+    "totalPrice": "Price",
+    "checkout": "Checkout",
+    "orderSummary": "Order Summary",
+    "subTotal": "Sub Total",
+    "shipping": "Shipping",
+    "total": "Total",
+    "promoCode": "Promo Code"
+  },
+  "NavBar": {
+    "home": "home",
+    "about": "about",
+    "contact": "contact",
+    "english": "english",
+    "arabic": "arabic"
+  },
+  "CartModal": {
+    "yourCart": "your cart",
+    "checkout": "CHECKOUT",
+    "emptyCart": "Your cart is currently empty.",
+    "emptyCartHint": "Browse our products and add items to your cart."
+  },
+  "HomePage": {
+    "title": "UNLEASH YOUR<br></br> STRENGTH WITH<br></br> IRONPRO",
+    "subtitle": "ENGINEERED FOR ATHLETES.<br></br> TRUSTED BY PROFESSIONALS.",
+    "equipment": "equipment",
+    "aboutus": "ABOUT US",
+    "aboutus_info": "We believe everyone deserves access to premium-grade fitness gear — without the hassle. That’s why we offer a carefully curated selection of equipment, all available online with fast and reliable delivery across Kuwait. <br></br><br></br> Whether you're building a home gym or upgrading your setup, IRONPRO is here to bring the gym to your door — with no compromise on quality, durability, or service. Train harder. Lift smarter. Choose IRONPRO.",
+    "shopnow": "SHOP NOW"
+  },
+  "Product": {
+    "title": "Product Page",
+    "description": "This is the product page where you can find details about our products.",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "price": "{price} {currency}",
+    "stock": "{stock} in stock",
+    "failedToLoad": "Failed to load products. Please try again later.",
+    "retry": "Retry",
+    "all": "all",
+    "notFound": "Product not found"
+  },
+  "footer": {
+    "scrollToTop": "scroll to top"
+  }
+}
