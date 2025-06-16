@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Locale, Product } from "@/types";
-import { FaFilter } from "react-icons/fa";
+import { Product } from "@/types";
 
 import { Typography } from "./typography";
 import { SubNav, SubNavItem } from "./subnav";
@@ -11,7 +10,6 @@ import { LuChevronLeft, LuChevronRight, LuLoaderCircle } from "react-icons/lu";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/app/api-agent";
 import { useLocale, useTranslations } from "next-intl";
-import useCart from "@/app/hooks/cart";
 
 export default function ProductsList() {
   const itemsPerPage = 12;
@@ -23,6 +21,7 @@ export default function ProductsList() {
   const { data: products, error, isLoading, isPending, refetch, isError } = useQuery({
     queryKey: ["products", locale],
     queryFn: async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response = await getProducts(locale as any);
       return response.data;
     },
@@ -64,7 +63,7 @@ export default function ProductsList() {
             {
               categories.map((c) => {
                 return (
-                  <SubNavItem label={c} className="text-sm capitalized" onClick={() => setSelectedCategory(c)} />
+                  <SubNavItem key={`category-${c}`} label={c} className="text-sm capitalized" onClick={() => setSelectedCategory(c)} />
                 )
               })
             }
@@ -75,7 +74,7 @@ export default function ProductsList() {
           {
             filteredProducts
               .slice((page - 1) * itemsPerPage, page * itemsPerPage)
-              .map((product, index) => (
+              .map((product) => (
                 <ProductCard
                   key={`product-card-${product.id}`}
                   product={product}

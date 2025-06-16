@@ -1,12 +1,11 @@
 'use client';
-import { unstable_ViewTransition as ViewTransition, useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { LuX } from "react-icons/lu";
-import { ProductImage } from "./product-thumbnail";
 import ImageGallery from "./image-gallery";
 import { useTranslations } from "next-intl";
 import QuantityInput from "./form/quantity-input";
-import BuyButtons from "./form/buy-buttons";
+// import BuyButtons from "./form/buy-buttons";
 import ImageCarousel from "./image-carousel";
 
 export type Product = {
@@ -24,6 +23,7 @@ interface ProductModalProps {
 
 export default function ProductModal({ isOpen, onClose, product }: ProductModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [documentBody, setDocumentBody] = useState<any>();
   const t = useTranslations("ProductModal");
 
@@ -92,7 +92,7 @@ export default function ProductModal({ isOpen, onClose, product }: ProductModalP
                   </div>
                   <p className="hidden sm:block">{product?.description}</p>
                   <QuantityInput value={0} />
-                  <BuyButtons />
+                  {/* <BuyButtons product={product} /> */}
                 </div>
               </div>
             </div>

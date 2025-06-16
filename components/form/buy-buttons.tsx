@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { LuLoaderCircle } from "react-icons/lu";
 
 import Button from "../button";
 import { Product } from "@/types";

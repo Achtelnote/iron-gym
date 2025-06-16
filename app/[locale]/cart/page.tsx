@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import { LuTrash2 } from "react-icons/lu";
@@ -15,14 +14,6 @@ import { Typography } from "@/components/typography";
 import { LineItem, Product } from "@/types";
 import { removeFromCart } from "@/Utils/cartHelper";
 import { useTranslations } from "next-intl";
-
-type CartItem = {
-  id: number;
-  title: string;
-  image: string;
-  quantity: number;
-  price: number;
-};
 
 // CSS eating shit.
 // TODO: Find way to limit height without using max-h-x
@@ -142,7 +133,7 @@ function CartItems({ cartItems = [] }: { cartItems?: LineItem[]; onRemoveFromCar
         ) : "" }
         {
           cartItems.map((item: LineItem) => (
-            <div className="w-full grid grid-cols-[30px_1fr] lg:grid-cols-[30px_100px_1fr] 2xl:grid-cols-[30px_180px_1fr] gap-4">
+            <div key={`cart-item-${item.product.id}`} className="w-full grid grid-cols-[30px_1fr] lg:grid-cols-[30px_100px_1fr] 2xl:grid-cols-[30px_180px_1fr] gap-4">
               <div className="grid justify-center items-center rounded-md hover:*:text-[var(--primary)] hover:bg-white/10 cursor-pointer" onClick={() => removeFromCart(item.product)}>
                 <LuTrash2 />
               </div>

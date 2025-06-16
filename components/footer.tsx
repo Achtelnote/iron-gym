@@ -1,5 +1,4 @@
-import { LuArrowUp, LuFacebook, LuInstagram, LuLinkedin, LuTwitter } from "react-icons/lu";
-import Logo from "./logo";
+import { LuArrowUp } from "react-icons/lu";
 import { getTranslations } from "next-intl/server";
 
 export default async function Footer() {

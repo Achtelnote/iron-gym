@@ -11,7 +11,6 @@ import { getProduct } from "@/app/api-agent";
 import { notFound, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations, useLocale } from "next-intl";
-import { LuLoaderCircle } from "react-icons/lu";
 
 export const experimental_ppr = true;
 
@@ -35,6 +34,7 @@ export default function ProductPage() {
   } = useQuery({
     queryKey: ["product", id],
     queryFn: async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data, error } = await getProduct(id, locale as any);
       if (error) throw new Error(error);
       return data;

@@ -15,9 +15,7 @@ import { usePathname } from "next/navigation";
 export default function CartModal() {
   const {
     cart,
-    addToCart,
     removeFromCart,
-    clearCart,
     isInitRef
   } = useCart();
   const tp = useTranslations("Product");
@@ -38,7 +36,7 @@ export default function CartModal() {
         modalRef.current?.classList.remove("grid!");
       }, 2000);
     }
-  }, [cart]);
+  }, [cart, isInitRef, path]);
   
   return (
     <div ref={modalRef} className="hidden absolute right-0 w-[24rem] h-[27rem] z-5 grid-rows-[50px_1fr_50px] gap-2 p-4 bg-[var(--primary)] rounded-tl-3xl rounded-br-3xl align-center">

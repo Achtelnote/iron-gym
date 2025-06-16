@@ -1,8 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import { FormEvent, FormEventHandler, useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MdError } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
@@ -14,7 +13,7 @@ import Select from "@/components/form/select";
 import Logo from "@/components/logo";
 import { ProductImage } from "@/components/product-thumbnail";
 import { Typography } from "@/components/typography";
-import { NewOrderRequest, NewOrderResponse, State } from "@/types";
+import { NewOrderRequest, NewOrderResponse } from "@/types";
 import states from "@/public/states.json";
 
 
@@ -59,7 +58,7 @@ function CheckoutOrderSummary() {
       <div className="hd:max-h-[calc(100vh-70px)] fhd:max-h-[calc(100vh-440px)] 2k:max-h-[calc(100vh-670px)] 4k:max-h-auto flex flex-col gap-2 py-4 overflow-y-auto">
         {
           cart.items.map((i) => (
-            <div className="max-h-25   grid grid-cols-[80px_1fr] gap-2">
+            <div key={`checkout-cart-item-${i.product.id}`} className="max-h-25   grid grid-cols-[80px_1fr] gap-2">
               <ProductImage image={i.product.image} className="rounded-md! w-full max-h-[80px]" />
               <div className="overflow-hidden px-1">
                 <Typography className="truncate">{i.product.name}</Typography>
@@ -114,11 +113,9 @@ function CheckoutForm() {
     register,
     handleSubmit,
     watch,
-    formState,
   } = useForm<CheckoutForm>();
   const t = useTranslations("checkout");
   const locale = useLocale();
-  const { push } = useRouter();
   const { cart } = useCart();
   const {
     mutate,
@@ -185,7 +182,7 @@ function CheckoutForm() {
     if (state) 
       return state.areas.map((s) => ({ label: s[locale as "en" | "ar"], value: s.en }));
     return [];
-  }, [selectedState])
+  }, [selectedState, locale])
 
   return (
     <form onSubmit={handleSubmit(onSubmitForm)} className="h-full w-full flex flex-col flex-1 hd:pt-12">

@@ -47,7 +47,7 @@ export default function Select({
           {...props}
         >
           {
-            options.map((o) => (<option value={o.value} className="bg-gray-800 rounded-sm">{o.label}</option>))
+            options.map((o) => (<option key={`${name || id}-${o.value}`} value={o.value} className="bg-gray-800 rounded-sm">{o.label}</option>))
           }
         </select>
         {

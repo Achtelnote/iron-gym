@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-export function SubNav({ children, fixed, className = "" }: { children?: React.ReactNode, fixed?: boolean, className?: string }) {
+export function SubNav({ children, className = "" }: { children?: React.ReactNode, fixed?: boolean, className?: string }) {
   const subNavBarRef = useRef<HTMLDivElement>(null);
   const location = usePathname();
 
@@ -40,6 +40,7 @@ export function SubNav({ children, fixed, className = "" }: { children?: React.R
 }
 
 export function SubNavPortal({ children }: { children: React.ReactNode }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [container, setContainer] = useState<any>(null);
   
   useEffect(() => {

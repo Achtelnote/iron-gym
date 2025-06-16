@@ -1,5 +1,5 @@
 "use client";
-import { FormEventHandler, useRef } from "react";
+import { useRef } from "react";
 import { LuMinus, LuPlus } from "react-icons/lu";
 import Button from "../button";
 import { useLocale } from "next-intl";
@@ -22,8 +22,6 @@ export default function QuantityInput({
   name,
   form,
   value = 0,
-  prefix,
-  postfix,
   max,
   min = 0,
   className = "",
@@ -35,6 +33,7 @@ export default function QuantityInput({
   const displayField = useRef<HTMLSpanElement>(null);
   const locale = useLocale();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChangeHandler = (e: any) => {
     onChange?.call(null, Number.parseInt(e.target.textContent));
   };

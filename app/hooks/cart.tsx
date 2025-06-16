@@ -27,8 +27,7 @@ export default function useCart() {
       isInitRef.current = true;
       const cart = localStorage.getItem("cart");
       if (cart) {
-        let tmpCart = JSON.parse(cart);
-        console.log(tmpCart);
+        const tmpCart = JSON.parse(cart);
         setCart(tmpCart);
       }
     }
@@ -50,7 +49,7 @@ export default function useCart() {
   
     let exists = false;
     
-    for (let item of tmpCart.items) {
+    for (const item of tmpCart.items) {
       if (
         item.product.id == lineItem.product.id
         // && item.variant == lineItem.variant

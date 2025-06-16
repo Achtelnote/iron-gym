@@ -68,7 +68,7 @@ export default function InputField({
       <datalist id={`datalist-${name || id}`}>
         {
           dataList?.map((d) => (
-            <option value={d.value}>{d.label}</option>
+            <option key={`${id || name}-${d.value}`} value={d.value}>{d.label}</option>
           ))
         }
       </datalist>

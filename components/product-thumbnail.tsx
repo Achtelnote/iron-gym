@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function ProductImage({
   alt = "Product Image",
   image = "/placeholder.jpg",
@@ -10,7 +12,7 @@ export function ProductImage({
   style?: React.CSSProperties;
 }) {
   return (
-    <img
+    <Image
       src={image}
       alt={alt}
       className={`object-cover aspect-[1/2] ${className}`}
