@@ -121,6 +121,7 @@ function CheckoutForm() {
     mutate,
     isPending,
     isError,
+    status
   } = useMutation({
     mutationKey: ["newOrder"],
     mutationFn: async (data: NewOrderRequest) => {
@@ -133,28 +134,36 @@ function CheckoutForm() {
       if (error) throw new Error("Failed to submit order");
       return responseData;
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       const url = data.url;
-      const form = document.createElement('form');
-      form.method = "POST";
-      form.action = url;
+      const formData = new FormData();
       Object.entries(data).forEach(([k, v]) => {
         if (k == "url") return;
-        const input = document.createElement('input');
-        input.type = 'hidden'; // Use hidden inputs to send data
-        input.name = k;
-        input.value = v.toString();
-        form.appendChild(input);
+        formData.append(k, v.toString());
       });
+      
+      const res = await fetch(url, { method: "POST", redirect: "follow", headers: [ ["enctype", "application/x-www-form-urlencoded"] ] });
 
-      document.body.appendChild(form);
+      // const form = document.createElement('form');
+      // form.method = "POST";
+      // form.action = url;
+      // Object.entries(data).forEach(([k, v]) => {
+      //   if (k == "url") return;
+      //   const input = document.createElement('input');
+      //   input.type = 'hidden'; // Use hidden inputs to send data
+      //   input.name = k;
+      //   input.value = v.toString();
+      //   form.appendChild(input);
+      // });
 
-      form.submit();
+      // document.body.appendChild(form);
+
+      // form.submit();
     },
     onError: () => {
       // TODO: Inform user the purchase failed
     }
-  })
+  });
 
   const onSubmitForm: SubmitHandler<CheckoutForm> = (data) => {
     const order = {

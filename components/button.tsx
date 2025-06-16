@@ -24,7 +24,7 @@ export default function Button({
   className,
   onClick
 }: ButtonProps) {
-  const primaryStyle = "bg-[var(--primary)] rounded-tl-2xl rounded-br-2xl cursor-pointer";
+  const primaryStyle = "bg-[var(--primary)] rounded-tl-2xl rounded-br-2xl cursor-pointer grid justify-center align-center";
   const secondaryStyle = "";
 
   if (variant == "primary") {

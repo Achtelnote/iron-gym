@@ -37,7 +37,7 @@
     "emptyCart": "Your cart is currently empty.",
     "quantity": "Quantity",
     "totalPrice": "Price",
-    "checkout": "Checkout",
+    "checkoutButton": "Checkout",
     "orderSummary": "Order Summary",
     "subTotal": "Sub Total",
     "shipping": "Shipping",

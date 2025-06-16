@@ -39,13 +39,6 @@
   --font-arabic: "Tajawal", "Beiruti", Segoe UI;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 html {
   height: auto;
   scrollbar-width: "thin";
