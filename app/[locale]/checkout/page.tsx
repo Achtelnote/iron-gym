@@ -13,7 +13,7 @@ import Select from "@/components/form/select";
 import Logo from "@/components/logo";
 import { ProductImage } from "@/components/product-thumbnail";
 import { Typography } from "@/components/typography";
-import { NewOrderRequest, NewOrderResponse } from "@/types";
+import { CbkResponseData, NewOrderRequest } from "@/types";
 import states from "@/public/states.json";
 
 
@@ -120,29 +120,30 @@ function CheckoutForm() {
   const {
     mutate,
     isPending,
-    isError,
-    status
+    isError
   } = useMutation({
     mutationKey: ["newOrder"],
     mutationFn: async (data: NewOrderRequest) => {
       // TODO: Move to api.ts
       const req = await fetch(`/api/orders/`, { method: "POST", body: JSON.stringify(data) });
-      if (req.status != 200) {
+      if (req.status != 201) {
         throw new Error("Failed to submit order");
       }
-      const { data: responseData, error } = await req.json() as NewOrderResponse;
-      if (error) throw new Error("Failed to submit order");
-      return responseData;
-    },
-    onSuccess: async (data) => {
-      const url = data.url;
+      const json = await req.json() as CbkResponseData;
+      
+      // Add validation
+      const url = json.url;
       const formData = new FormData();
-      Object.entries(data).forEach(([k, v]) => {
+      Object.entries(json).forEach(([k, v]) => {
         if (k == "url") return;
         formData.append(k, v.toString());
       });
       
-      const res = await fetch(url, { method: "POST", redirect: "follow", headers: [ ["enctype", "application/x-www-form-urlencoded"] ] });
+      await fetch(url, { method: "POST", redirect: "follow", headers: [ ["enctype", "application/x-www-form-urlencoded"] ] });
+
+      return json;
+    },
+    onSuccess: async () => {
 
       // const form = document.createElement('form');
       // form.method = "POST";

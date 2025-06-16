@@ -63,7 +63,7 @@ export type NewOrderRequest = {
   cart: any,
 };
 
-export type CbkRequestData = {
+export type CbkResponseData = {
   tij_MerchantEncryptCode: string;
   tij_MerchAuthKeyApi: string;
   tij_MerchantPaymentLang: string;
@@ -81,7 +81,7 @@ export type CbkRequestData = {
 };
 
 export type NewOrderResponse = {
-  data: CbkRequestData;
+  data: CbkResponseData;
   error: string;
 };
 
