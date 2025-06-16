@@ -125,7 +125,7 @@ function CheckoutForm() {
     mutationKey: ["newOrder"],
     mutationFn: async (data: NewOrderRequest) => {
       // TODO: Move to api.ts
-      const req = await fetch(`/orders/`, { method: "POST", body: JSON.stringify(data) });
+      const req = await fetch(`/api/orders/`, { method: "POST", body: JSON.stringify(data) });
       if (req.status != 200) {
         throw new Error("Failed to submit order");
       }

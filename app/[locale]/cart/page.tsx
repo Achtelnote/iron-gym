@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { LuTrash2 } from "react-icons/lu";
+import { useTranslations } from "next-intl";
 
 import useCart from "@/app/hooks/cart";
 import Button from "@/components/button";
@@ -13,7 +14,6 @@ import { ProductImage } from "@/components/product-thumbnail";
 import { Typography } from "@/components/typography";
 import { LineItem, Product } from "@/types";
 import { removeFromCart } from "@/Utils/cartHelper";
-import { useTranslations } from "next-intl";
 
 // CSS eating shit.
 // TODO: Find way to limit height without using max-h-x

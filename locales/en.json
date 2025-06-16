@@ -75,6 +75,7 @@
     "failedToLoad": "Failed to load products. Please try again later.",
     "retry": "Retry",
     "all": "all",
+    "outOfStock": "Out of stock",
     "notFound": "Product not found"
   },
   "footer": {

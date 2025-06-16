@@ -70,13 +70,15 @@
     "title": "صفحة المنتج",
     "description": "هذه هي صفحة المنتج حيث يمكنك العثور على تفاصيل حول منتجاتنا.",
     "addToCart": "أضف إلى عربة التسوق",
+    "addToCartShort": "أضف",
     "buyNow": "اشتر الآن",
     "price": "{price} {currency}",
     "stock": "{stock} في المخزون",
     "failedToLoad": "غير قادر على تحميل المنتجات. يرجى المحاولة لاحقاً.",
     "retry": "إعادة المحاولة",
     "all": "الكل",
-    "notFound": "Product not found"
+    "outOfStock": "غير متوفر في المخزون",
+    "notFound": "المنتج غير موجود"
   },
   "footer": {
     "scrollToTop": "انتقل إلى الأعلى"

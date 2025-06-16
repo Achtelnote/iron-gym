@@ -1,10 +1,10 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 
 import Button from "@/components/button";
 import { Typography } from "@/components/typography";
 import ProductsList from "@/components/products-list";
-import Image from "next/image";
 
 export const experimental_ppr = true;
 
