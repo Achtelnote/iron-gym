@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export const experimental_ppr = true;
 
-export default async function Home({}: Readonly<{ params: { locale: string } }>) {
+export default async function Home() {
   const t = await getTranslations("HomePage");
 
   return (

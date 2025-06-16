@@ -124,7 +124,8 @@ function CheckoutForm() {
   } = useMutation({
     mutationKey: ["newOrder"],
     mutationFn: async (data: NewOrderRequest) => {
-      const req = await fetch(`${process.env.NEXT_PUBLIC_API}/orders/`, { method: "POST", body: JSON.stringify(data) });
+      // TODO: Move to api.ts
+      const req = await fetch(`/orders/`, { method: "POST", body: JSON.stringify(data) });
       if (req.status != 200) {
         throw new Error("Failed to submit order");
       }

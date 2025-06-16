@@ -1,7 +1,7 @@
 import { Locale, Product, ProductResponse } from "@/types";
 
 export async function getProducts(locale: Locale = "en") {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/products/-1`);
+  const response = await fetch(`/products/-1`);
   if (!response.ok) {
     throw new Error("Failed to fetch products");
   }
@@ -23,7 +23,7 @@ export async function getProducts(locale: Locale = "en") {
 }
 
 export async function getProduct(id?: string, locale: Locale = "en") {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/products/${id}`);
+  const response = await fetch(`/products/${id}`);
   if (!response.ok) {
     // throw new Error("Failed to fetch products");
     return { error: "Failed to fetch products" };
