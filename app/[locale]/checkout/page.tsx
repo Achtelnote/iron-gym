@@ -133,33 +133,24 @@ function CheckoutForm() {
       
       // Add validation
       const url = json.url;
-      const formData = new FormData();
+
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = url;
+      form.enctype = "application/x-www-form-urlencoded";
       Object.entries(json).forEach(([k, v]) => {
-        if (k == "url") return;
-        formData.append(k, v.toString());
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = k;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        input.value = v as any;
+        form.appendChild(input);
       });
-      
-      await fetch(url, { method: "POST", redirect: "follow", headers: [ ["enctype", "application/x-www-form-urlencoded"] ] });
+
+      document.body.appendChild(form);
+      form.submit();
 
       return json;
-    },
-    onSuccess: async () => {
-
-      // const form = document.createElement('form');
-      // form.method = "POST";
-      // form.action = url;
-      // Object.entries(data).forEach(([k, v]) => {
-      //   if (k == "url") return;
-      //   const input = document.createElement('input');
-      //   input.type = 'hidden'; // Use hidden inputs to send data
-      //   input.name = k;
-      //   input.value = v.toString();
-      //   form.appendChild(input);
-      // });
-
-      // document.body.appendChild(form);
-
-      // form.submit();
     },
     onError: () => {
       // TODO: Inform user the purchase failed
@@ -210,7 +201,7 @@ function CheckoutForm() {
         </div>
         <div className="hd:flex gap-4 mt-4">
           <InputField block {...register("personalDetails.email")} type="email" label={t("email")} placeholder={t("placeholder.email")} />
-          <InputField block {...register("personalDetails.phone")} type="tel" label={t("phoneNumber")} placeholder={t("placeholder.phoneNumber")} />
+          <InputField required block {...register("personalDetails.phone")} type="tel" label={t("phoneNumber")} placeholder={t("placeholder.phoneNumber")} />
         </div>
       </div>
       {/* <div className="w-full mt-8">

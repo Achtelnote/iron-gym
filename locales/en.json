@@ -69,6 +69,7 @@
     "title": "Product Page",
     "description": "This is the product page where you can find details about our products.",
     "addToCart": "Add to Cart",
+    "addToCartShort": "Add",
     "buyNow": "Buy Now",
     "price": "{price} {currency}",
     "stock": "{stock} in stock",

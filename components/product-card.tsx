@@ -3,7 +3,7 @@ import { unstable_ViewTransition as ViewTransition } from 'react';
 import Link from "next/link";
 import { ProductImage } from "./product-thumbnail";
 import Button from './button';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Product } from '@/types';
 import { addToCart } from '@/Utils/cartHelper';
 
@@ -15,7 +15,8 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({ product, onClick }: ProductCardProps) {
-  const t = useTranslations("Product")
+  const t = useTranslations("Product");
+  const locale = useLocale();
 
   return (
     <div className="relative sm:min-h-[300px] mt-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-md cursor-pointer">
@@ -33,8 +34,8 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
           </p>
         </div>
       </Link>
-      <Button className="absolute hidden 2xl:block right-0 bottom-0 text-sm uppercase cursor-pointer" label={t("addToCart")} compact onClick={() => addToCart(product)} />
-      <Button className="absolute block 2xl:hidden right-0 bottom-0 text-xs uppercase cursor-pointer" label={t("addToCartShort")} compact onClick={() => addToCart(product)} />
+      <Button className={`absolute hidden 2xl:block ${locale == "en" ? "right-0": "left-0"} bottom-0 text-sm uppercase cursor-pointer`} label={t("addToCart")} compact onClick={() => addToCart(product)} />
+      <Button className={`absolute block 2xl:hidden ${locale == "en" ? "right-0": "left-0"} bottom-0 text-xs uppercase cursor-pointer`} label={t("addToCartShort")} compact onClick={() => addToCart(product)} />
     </div>
   );
 }

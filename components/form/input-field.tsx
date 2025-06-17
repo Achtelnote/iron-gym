@@ -5,6 +5,7 @@ type InputFieldProps = {
   value?: string;
   label?: string;
   placeholder?: string;
+  required?: boolean;
   prefix?: React.ReactNode;
   postfix?: React.ReactNode;
   className?: string;
@@ -23,6 +24,7 @@ export default function InputField({
   value,
   label = "",
   placeholder = "",
+  required = false,
   prefix,
   postfix,
   className = "",
@@ -55,6 +57,7 @@ export default function InputField({
           onChange={onChange}
           pattern={pattern || undefined}
           list={`datalist-${name || id}`}
+          required={required}
           {...props}
         />
         {

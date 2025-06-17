@@ -96,7 +96,7 @@ function MenuButton({ onClick }: { onClick?: () => void; }) {
 
   if (location !== '/') {
     return (
-      <button className="lg:hidden p-6 hover:bg-[var(--color-nav-item-hover)] cursor-pointer" onClick={nav.back}>
+      <button className="lg:hidden p-6 hd:hover:bg-[var(--color-nav-item-hover)] cursor-pointer" onClick={nav.back}>
         <LuChevronLeft size={24} />
       </button>
     )
@@ -130,7 +130,7 @@ function NavItem({
   return (
     <Link href={href} className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent ${active ? "underline underline-offset-8" : ""} ${className}`} onClick={onClick}>
       {icon}
-      <Typography className="hidden hd:block" uppercase>
+      <Typography uppercase>
         {label}
       </Typography>
     </Link>
