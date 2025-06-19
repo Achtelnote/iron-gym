@@ -1,34 +1,130 @@
-import { getFormatter, getLocale, getTranslations } from "next-intl/server";
+"use client";
+
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useSearchParams, redirect } from "next/navigation";
-import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import Image from "next/image";
-import Link from "next/link";
+import { LuChevronLeft, LuChevronRight, LuLoaderCircle } from "react-icons/lu";
 
-import { Typography } from "@/components/typography";
 import { getProducts } from "@/app/api-agent";
-import { TransactionResult } from "@/types";
-import Button from "@/components/button";
 import Logo from "@/components/logo";
+import { Typography } from "@/components/typography";
+import { TransactionResult } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import Button from "@/components/button";
+import Link from "next/link";
+import { Suspense } from "react";
 
-type SearchParams = {
-    searchParams?: Promise<Record<string, string>>;
-};
+function TransactionDetails() {
+  const tCommon = useTranslations("common");
+  const t = useTranslations("checkout.thankyou");
+  const formatter = useFormatter();
+  const searchParams = useSearchParams();
 
-export default async function ThankYouPage({ searchParams }: SearchParams) {
-  const tCommon = await getTranslations("common");
-  const t = await getTranslations("checkout.thankyou");
-  const formatter = await getFormatter();
+  const locale = useLocale();
+  const { data: products, isLoading } = useQuery({
+    queryKey: ["products", locale],
+    queryFn: async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const response = await getProducts(locale as any);
+      return response.data;
+    },
+    initialData: []
+  });
 
-  const locale = await getLocale();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: products } = await getProducts(locale as any);
-
-  const params = new URLSearchParams(await searchParams);
-  const v = params.get("v");
+  const v = searchParams.get("v");
   if (!v) {
     redirect("/");
   }
   const data = JSON.parse(atob(v) || "{}") as TransactionResult;
+
+  return (
+    <div className="w-full hd:w-auto flex flex-col items-center px-6 hd:px-14 py-8 bg-[var(--primary)] rounded-tl-4xl rounded-br-4xl">
+      <Logo className="w-70 h-auto!" />
+      <div className="w-full flex flex-col gap-4">
+        <div className="flex justify-between mt-8">
+          <Typography uppercase weight="extralight">
+            {t("transactionDate")}
+          </Typography>
+          <Typography uppercase weight="extralight">
+            {formatter.dateTime(new Date(), { dateStyle: "full" })}
+          </Typography>
+        </div>
+        <div className="flex justify-between">
+          <Typography uppercase weight="extralight">
+            {t("transactionAmount")}
+          </Typography>
+          <Typography uppercase weight="extralight">
+            {tCommon("price", { price: data.Amount, currency: "KWD" })}
+          </Typography>
+        </div>
+        <div className="flex justify-between">
+          <Typography uppercase weight="extralight">
+            {t("transactionPayId")}
+          </Typography>
+          <Typography uppercase weight="extralight">
+            {data.PayId}
+          </Typography>
+        </div>
+        <div className="flex justify-between">
+          <Typography uppercase weight="extralight">
+            {t("transactionReceiptNumber")}
+          </Typography>
+          <Typography uppercase weight="extralight">
+            {data.ReceiptNo}
+          </Typography>
+        </div>
+        <div className="flex justify-between">
+          <Typography uppercase weight="extralight">
+            {t("transactionId")}
+          </Typography>
+          <Typography uppercase weight="extralight">
+            {data.TransactionId}
+          </Typography>
+        </div>
+        <div className="flex justify-between">
+          <Typography uppercase weight="extralight">
+            {t("transactionPaymentId")}
+          </Typography>
+          <Typography uppercase weight="extralight">
+            {data.PaymentId}
+          </Typography>
+        </div>
+      </div>
+      <div className="hidden fhd:block w-full mt-8">
+        <Typography uppercase weight="extralight" className="text-center">
+          Checkout our other products
+        </Typography>
+        <div className="flex flex-col mt-4 gap-2">
+          {
+            isLoading ? (
+              <LuLoaderCircle size={24} className="animate-spin" />
+            ) : 
+            products.slice(0, 2).map((p) => (
+              <Link key={`product-${p.id}`} href={`/product/${p.id}`}>
+                <div className={`relative bg-[var(--surface)] ${locale == "en" ? "grid" : "grid"} grid-cols-[90px_1fr] rounded-xl`}>
+                  <Image src={p.image} width={175} height={175} alt="" className={`${locale == "en" ? "rounded-l-xl" : "rounded-r-xl"}`} />
+                  <div className="px-4 py-2">
+                    <Typography variant="body-sm">
+                      {p.name}
+                    </Typography>
+                    <Typography variant="body-sm">
+                      {tCommon("price", { price: p.price, currency: "KWD" })}
+                    </Typography>
+                  </div>
+                  <Button className={`absolute ${locale == "en" ? "right-0 rounded-br-xl rounded-tl-xl" : "left-0 rounded-br-none rounded-tl-none rounded-tr-xl"} bottom-0 py-0! text-sm`} label="VIEW" />
+                </div>
+              </Link>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function ThankYouPage() {
+  const t = useTranslations("checkout.thankyou");
+  const locale = useLocale();
 
   return (
     <div className="h-[calc(100%-75px)] hd:w-[var(--content-width)] m-auto flex flex-col items-between justify-center h-full">
@@ -53,84 +149,9 @@ export default async function ThankYouPage({ searchParams }: SearchParams) {
             </Typography>
           </Link>
         </div>
-        <div className="w-full hd:w-auto flex flex-col items-center px-6 hd:px-14 py-8 bg-[var(--primary)] rounded-tl-4xl rounded-br-4xl">
-          <Logo className="w-70 h-auto!" />
-          <div className="w-full flex flex-col gap-4">
-            <div className="flex justify-between mt-8">
-              <Typography uppercase weight="extralight">
-                {t("transactionDate")}
-              </Typography>
-              <Typography uppercase weight="extralight">
-                {formatter.dateTime(new Date(), { dateStyle: "full" })}
-              </Typography>
-            </div>
-            <div className="flex justify-between">
-              <Typography uppercase weight="extralight">
-                {t("transactionAmount")}
-              </Typography>
-              <Typography uppercase weight="extralight">
-                {tCommon("price", { price: data.Amount, currency: "KWD" })}
-              </Typography>
-            </div>
-            <div className="flex justify-between">
-              <Typography uppercase weight="extralight">
-                {t("transactionPayId")}
-              </Typography>
-              <Typography uppercase weight="extralight">
-                {data.PayId}
-              </Typography>
-            </div>
-            <div className="flex justify-between">
-              <Typography uppercase weight="extralight">
-                {t("transactionReceiptNumber")}
-              </Typography>
-              <Typography uppercase weight="extralight">
-                {data.ReceiptNo}
-              </Typography>
-            </div>
-            <div className="flex justify-between">
-              <Typography uppercase weight="extralight">
-                {t("transactionId")}
-              </Typography>
-              <Typography uppercase weight="extralight">
-                {data.TransactionId}
-              </Typography>
-            </div>
-            <div className="flex justify-between">
-              <Typography uppercase weight="extralight">
-                {t("transactionPaymentId")}
-              </Typography>
-              <Typography uppercase weight="extralight">
-                {data.PaymentId}
-              </Typography>
-            </div>
-          </div>
-          <div className="hidden fhd:block w-full mt-8">
-            <Typography uppercase weight="extralight" className="text-center">
-              Checkout our other products
-            </Typography>
-            <div className="flex flex-col mt-4 gap-2">
-              {
-                products.slice(0, 2).map((p) => (
-                  <Link key={`product-${p.id}`} href={`/product/${p.id}`}>
-                    <div className={`relative bg-[var(--surface)] ${locale == "en" ? "grid" : "grid"} grid-cols-[90px_1fr] rounded-xl`}>
-                      <Image src={p.image} width={175} height={175} alt="" className={`${locale == "en" ? "rounded-l-xl" : "rounded-r-xl"}`} />
-                      <div className="px-4 py-2">
-                        <Typography variant="body-sm">
-                          {p.name}
-                        </Typography>
-                        <Typography variant="body-sm">
-                          {tCommon("price", { price: p.price, currency: "KWD" })}
-                        </Typography>
-                      </div>
-                      <Button className={`absolute ${locale == "en" ? "right-0 rounded-br-xl rounded-tl-xl" : "left-0 rounded-br-none rounded-tl-none rounded-tr-xl"} bottom-0 py-0! text-sm`} label="VIEW" />
-                    </div>
-                  </Link>
-                ))
-              }
-            </div>
-          </div>
-        </div>
+        <Suspense>
+          <TransactionDetails />
+        </Suspense>
       </div>
     </div>
   );
