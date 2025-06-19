@@ -1,12 +1,12 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LuChevronLeft, LuLanguages, LuMenu, LuShoppingCart } from "react-icons/lu";
 import Logo from "./logo";
 import Link from "next/link";
 import CartModal from "./cart/cart-modal";
-import { useEffect, useRef } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { Suspense, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { Typography } from "./typography";
 import { useGetAllSearchParams } from "@/app/hooks/searchParams";
 
@@ -47,7 +47,9 @@ export default function NavBar({ className }: { className: string}) {
           <Logo className="max-w-25 lg:max-w-40 2xl:max-w-auto" />
         </div>
         <div className="flex">
-          <LanguageSelect />
+          <Suspense>
+            <LanguageSelect />
+          </Suspense>
           <NavCart />
         </div>
       </div>
@@ -58,13 +60,13 @@ export default function NavBar({ className }: { className: string}) {
 
 function LanguageSelect({ className }: { className?: string; }) {
   const location = usePathname();
-  const { params, queryString } = useGetAllSearchParams();
+  const { queryString } = useGetAllSearchParams();
   const newLocation = (locale: string) => {
     const newLoc = location.replace(/\/[a-z]{2}\/?/, `/${locale}/`);
     return `${newLoc}?${queryString}`;
   };
   const t = useTranslations("NavBar");
-  const currentLocale = useLocale();
+  // const currentLocale = useLocale();
   const ar = t("arabic");
   const en = t("english");
 

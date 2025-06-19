@@ -1,43 +1,34 @@
-"use client";
-
-import { useFormatter, useLocale, useTranslations } from "next-intl";
-import { useSearchParams, redirect } from "next/navigation";
-import { LuChevronLeft, LuChevronRight, LuLoaderCircle } from "react-icons/lu";
+import { redirect } from "next/navigation";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import Image from "next/image";
+import Link from "next/link";
+import { getTranslations, getFormatter, getLocale } from "next-intl/server";
 
 import { getProducts } from "@/app/api-agent";
-import InputField from "@/components/form/input-field";
 import Logo from "@/components/logo";
-import { ProductImage } from "@/components/product-thumbnail";
 import { Typography } from "@/components/typography";
 import { TransactionResult } from "@/types";
-import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
-import Image from "next/image";
 import Button from "@/components/button";
-import Link from "next/link";
 
-export default function TransactionFailedPage() {
-  const tCommon = useTranslations("common");
-  const t = useTranslations("checkout.failed");
-  const formatter = useFormatter();
+type SearchParams = {
+    searchParams?: Promise<Record<string, string>>;
+};
 
-  const searchParams = useSearchParams();
-  const locale = useLocale();
-  const { data: products, error, isLoading, isPending, refetch, isError } = useQuery({
-    queryKey: ["products", locale],
-    queryFn: async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response = await getProducts(locale as any);
-      return response.data;
-    },
-    initialData: []
-  });
+export default async function TransactionFailedPage({ searchParams }: SearchParams) {
+  const tCommon = await getTranslations("common");
+  const t = await getTranslations("checkout.failed");
+  const formatter = await getFormatter();
 
-  let v = searchParams.get("v");
+  const params = new URLSearchParams(await searchParams);
+  const locale = await getLocale();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: products } = await getProducts(locale as any);
+
+  const v = params.get("v");
   if (!v) {
     redirect("/");
   }
-  let data = JSON.parse(atob(v) || "{}") as TransactionResult;
+  const data = JSON.parse(atob(v) || "{}") as TransactionResult;
 
   return (
     <div className="h-[calc(100%-75px)] hd:w-[var(--content-width)] m-auto flex flex-col items-between justify-center h-full">
@@ -115,9 +106,6 @@ export default function TransactionFailedPage() {
             </Typography>
             <div className="flex flex-col mt-4 gap-2">
               {
-                isLoading ? (
-                  <LuLoaderCircle size={24} className="animate-spin" />
-                ) : 
                 products.slice(0, 2).map((p) => (
                   <Link key={`product-${p.id}`} href={`/product/${p.id}`}>
                     <div className={`relative bg-[var(--surface)] ${locale == "en" ? "grid" : "grid"} grid-cols-[90px_1fr] rounded-xl`}>
