@@ -14,7 +14,7 @@ export default async function Home() {
   return (
     <>
       <section className="relative h-[100vh] overflow-hidden flex items-center justify-center 2xl:justify-start">
-        <Image src={"/hero.jpg"} alt="hero" className="absolute inset-0 w-full h-full object-cover -z-1 opacity-30 blur-xs" />
+        <Image src={"/hero.jpg"} alt="hero" width="10000" height="10000" className="absolute inset-0 w-full h-full object-cover -z-1 opacity-30 blur-xs" />
         <div className="flex flex-col gap-2 2xl:mx-[20%] 2xl:mt-80">
           <Typography as="h1" variant="heading" className="">
             {
@@ -47,7 +47,7 @@ export default async function Home() {
             {t.rich("aboutus_info", { br: () => <br/> })}
           </Typography>
           <div className="2xl:w-200"></div>
-          <Image src="/aboutus.jpg" alt="about us" className="max-h-100 2xl:max-h-160 w-full object-cover rounded-2xl" />
+          <Image src="/aboutus.jpg" alt="about us" width="10000" height="10000" className="max-h-100 2xl:max-h-160 w-full object-cover rounded-2xl" />
         </div>
       </section>
     </>

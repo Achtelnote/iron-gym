@@ -29,6 +29,35 @@
       "address": "عنوان",
       "city": "سلوى",
       "state": "حولي"
+    },
+    "thankyou": {
+      "thankyou": "شكراً على شرائك",
+      "for": " من متجرنا",
+      "productDeliveryStatus": "منتجاتك في طريقها إليك!",
+      "contactUs": "يرجى التواصل معنا لتتبع التوصيل",
+      "enterYourEmailAddress": "أدخل بريدك الإلكتروني",
+      "transactionDate": "تاريخ",
+      "transactionAmount": "المبلغ",
+      "transactionPayId": "رقم الطلب",
+      "transactionReceiptNumber": "رقم الاستلام",
+      "transactionId": "معرف المعاملة",
+      "transactionPaymentId": "معرف الدفع",
+      "otherProducts": "اكتشف منتجاتنا الأخرى",
+      "returnToShop": "العودة إلى التسوق"
+    },
+    "failed": {
+      "sorry": "للأسف! حدث خطأ ما",
+      "thereHasBeenAnError": "",
+      "yourPurchaseFailed": "حدث خطأ أثناء إتمام طلبك",
+      "reason": "سبب الخطأ: {reason, select, canceled {تم إلغاء المعاملة} expired {انتهت صلاحية البطاقة} other {سبب مجهول}}",
+      "tryAgain": "يرجى التواصل معنا للمساعدة",
+      "transactionDate": "تاريخ",
+      "transactionAmount": "المبلغ",
+      "transactionPayId": "رقم الطلب",
+      "transactionTrackingId": "معرف تتبع الطلب",
+      "transactionPaymentId": "معرف الدفع",
+      "otherProducts": "اكتشف منتجاتنا الأخرى",
+      "returnToShop": "العودة إلى التسوق"
     }
   },
   "cart": {

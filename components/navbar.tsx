@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { LuChevronLeft, LuLanguages, LuMenu, LuShoppingCart } from "react-icons/lu";
 import Logo from "./logo";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import CartModal from "./cart/cart-modal";
 import { useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Typography } from "./typography";
+import { useGetAllSearchParams } from "@/app/hooks/searchParams";
 
 export default function NavBar({ className }: { className: string}) {
   const currentPath = usePathname();
@@ -57,10 +58,10 @@ export default function NavBar({ className }: { className: string}) {
 
 function LanguageSelect({ className }: { className?: string; }) {
   const location = usePathname();
+  const { params, queryString } = useGetAllSearchParams();
   const newLocation = (locale: string) => {
     const newLoc = location.replace(/\/[a-z]{2}\/?/, `/${locale}/`);
-    console.log(newLoc);
-    return newLoc;
+    return `${newLoc}?${queryString}`;
   };
   const t = useTranslations("NavBar");
   const currentLocale = useLocale();
@@ -69,7 +70,7 @@ function LanguageSelect({ className }: { className?: string; }) {
 
   return (
     <div className="language-button w-full m-0 p-0">
-      <NavItem label={currentLocale == "en" ? en : ar} icon={<LuLanguages size={20} className="lg:hidden" />} className={`block ${className}`} />
+      <NavItem icon={<LuLanguages size={20} />} className={`block ${className}`} />
       <div className="language-menu absolute hidden m-0 p-0 flex flex-col bg-[var(--primary)] text-center">
         <NavItem label={en} href={newLocation('en')} />
         <NavItem label={ar} href={newLocation('ar')} className={``} />

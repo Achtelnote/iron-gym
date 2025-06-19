@@ -15,6 +15,8 @@ export function ProductImage({
     <Image
       src={image}
       alt={alt}
+      width="10000"
+      height="10000"
       className={`object-cover aspect-[1/2] ${className}`}
       style={style}
     />

@@ -6,6 +6,8 @@
   --foreground: #ededed;
   --foreground1: #f0f0f0;
   --on-forground1: #ffffff;
+  --surface: #151515;
+  --on-surface: #ededed;
 }
 
 @theme inline {

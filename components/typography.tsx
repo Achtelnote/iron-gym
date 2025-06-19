@@ -1,7 +1,7 @@
 type TypographyProps = {
   children: React.ReactNode;
   className?: string;
-  variant?: "heading" | "subheading" | "title" | "title1" | "title2" | "subtitle" | "body" | "body1" | "caption";
+  variant?: "heading" | "subheading" | "title" | "title1" | "title2" | "subtitle" | "body" | "body1" | "body-sm" | "caption";
   weight?: "light" | "extralight" | "thin" | "normal" | "medium" | "semibold" | "bold" | "black";
   capitalized?: boolean;
   uppercase?: boolean;
@@ -27,7 +27,7 @@ export const Typography: React.FC<TypographyProps> = ({
     subtitle: "text-xl",
     body1: "text-lg",
     body: "text-base",
-    bodySmall: "text-sm",
+    "body-sm": "text-sm",
     caption: "text-xs",
   };
 

@@ -29,6 +29,35 @@
       "address": "Address",
       "city": "Salwa",
       "state": "Hawalli"
+    },
+    "thankyou": {
+      "thankyou": "Thank You",
+      "for": "for your purchase",
+      "productDeliveryStatus": "Your products are on the way !",
+      "contactUs": "Please contact us to track your delivery",
+      "enterYourEmailAddress": "Enter your email address",
+      "transactionDate": "date",
+      "transactionAmount": "amount",
+      "transactionPayId": "order id",
+      "transactionReceiptNumber": "receipt number",
+      "transactionId": "transaction id",
+      "transactionPaymentId": "payment id",
+      "otherProducts": "checkout our other products",
+      "returnToShop": "Return to shop"
+    },
+    "failed": {
+      "sorry": "sorry!",
+      "thereHasBeenAnError": "There has been an error",
+      "yourPurchaseFailed": "Your purchase order has failed!",
+      "reason": "Reason: {reason}",
+      "tryAgain": "Contact us at 00 00 0000 for support",
+      "transactionDate": "date",
+      "transactionAmount": "amount",
+      "transactionPayId": "order id",
+      "transactionTrackingId": "tracking id",
+      "transactionPaymentId": "payment id",
+      "otherProducts": "checkout our other products",
+      "returnToShop": "Return to shop"
     }
   },
   "cart": {

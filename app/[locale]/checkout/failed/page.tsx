@@ -16,9 +16,9 @@ import Image from "next/image";
 import Button from "@/components/button";
 import Link from "next/link";
 
-export default function ThankYouPage() {
+export default function TransactionFailedPage() {
   const tCommon = useTranslations("common");
-  const t = useTranslations("checkout.thankyou");
+  const t = useTranslations("checkout.failed");
   const formatter = useFormatter();
 
   const searchParams = useSearchParams();
@@ -42,15 +42,18 @@ export default function ThankYouPage() {
   return (
     <div className="h-[calc(100%-75px)] hd:w-[var(--content-width)] m-auto flex flex-col items-between justify-center h-full">
       <div className="h-full flex flex-col hd:flex-row gap-4 items-center justify-between hd:justify-center mt-[80px] p-4 hd:p-0">
-        <div className="flex flex-col gap-4 justify-center hd:gap-4 p-2 fhd:p-32 mobile:mt-12 hd:mt-0">
+        <div className="flex flex-col gap-4 justify-center hd:gap-4 p-4 fhd:p-32 mobile:mt-12 hd:mt-0">
           <div>
-            <Typography uppercase variant="heading" weight="light">{t("thankyou")}</Typography>
-            <Typography uppercase variant="title2" weight="extralight">{t("for")}</Typography>
+            <Typography uppercase variant="heading" weight="light">{t("sorry")}</Typography>
+            <Typography uppercase variant="title2" weight="extralight">{t("thereHasBeenAnError")}</Typography>
           </div>
-          <Typography uppercase variant="title2" weight="extralight">{t("productDeliveryStatus")}</Typography>
-          <Typography uppercase variant="title2" weight="extralight">
-            {t("contactUs")}
-          </Typography>
+          <div>
+            <Typography uppercase variant="title2" weight="extralight">{t("yourPurchaseFailed")}</Typography>
+            <Typography uppercase variant="title2" weight="extralight">{t("reason", { reason: data.CCMessage.toLowerCase() })}</Typography>
+            <Typography uppercase variant="title2" weight="extralight">
+              {t("tryAgain")}
+            </Typography>
+          </div>
           <Link href="/#products">
             <Typography uppercase variant="title2" weight="extralight" className="flex gap-1 items-center justify-end">
               {t("returnToShop")}
@@ -62,9 +65,9 @@ export default function ThankYouPage() {
             </Typography>
           </Link>
         </div>
-        <div className="w-full hd:w-auto flex flex-col items-center px-6 hd:px-14 py-8 bg-[var(--primary)] rounded-tl-4xl rounded-br-4xl">
+        <div className="flex flex-col items-center px-6 hd:px-14 py-8 bg-[var(--primary)] rounded-tl-4xl rounded-br-4xl">
           <Logo className="w-70 h-auto!" />
-          <div className="w-full flex flex-col gap-4">
+          <div className="w-full flex flex-col gap-2 hd:gap-4">
             <div className="flex justify-between mt-8">
               <Typography uppercase weight="extralight">
                 {t("transactionDate")}
@@ -91,18 +94,10 @@ export default function ThankYouPage() {
             </div>
             <div className="flex justify-between">
               <Typography uppercase weight="extralight">
-                {t("transactionReceiptNumber")}
+                {t("transactionTrackingId")}
               </Typography>
               <Typography uppercase weight="extralight">
-                {data.ReceiptNo}
-              </Typography>
-            </div>
-            <div className="flex justify-between">
-              <Typography uppercase weight="extralight">
-                {t("transactionId")}
-              </Typography>
-              <Typography uppercase weight="extralight">
-                {data.TransactionId}
+                {data.TrackId}
               </Typography>
             </div>
             <div className="flex justify-between">

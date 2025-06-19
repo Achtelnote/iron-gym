@@ -85,6 +85,28 @@ export type NewOrderResponse = {
   error: string;
 };
 
+type TransactionResult = {
+  Status: number;
+  Amount: string;
+  TrackId: string;
+  PayType: string;
+  PaymentId: string;
+  ReceiptNo: string;
+  AuthCode: string;
+  PostDate: string;
+  ReferenceId: string;
+  TransactionId: string;
+  Message: string;
+  PayId: string;
+  MerchUdf1: string;
+  MerchUdf2: string;
+  MerchUdf3: string;
+  CCMessage: "CAPTURED" | "CANCELLED",
+  MerchUdf4: string;
+  MerchUdf5: string;
+};
+
+
 export type State = {
   title: {
     en: string;
