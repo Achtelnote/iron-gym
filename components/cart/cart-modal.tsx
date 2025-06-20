@@ -23,7 +23,6 @@ export default function CartModal() {
   const modalRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
   const path = usePathname();
-  const locale = useLocale();
 
   useEffect(() => {
     if (!isInitRef.current) return;
@@ -32,9 +31,9 @@ export default function CartModal() {
     }
 
     if (!path.includes("/cart") && modalRef.current && cart.items.length > 0) {
-      modalRef.current.classList.add("grid!");
+      modalRef.current.classList.add("hd:grid!");
       timeoutRef.current = setTimeout(() => {
-        modalRef.current?.classList.remove("grid!");
+        modalRef.current?.classList.remove("hd:grid!");
       }, 2000);
     }
   }, [cart, isInitRef, path]);

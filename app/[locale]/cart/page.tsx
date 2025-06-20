@@ -71,7 +71,7 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
           {t("orderSummary")}
         </Typography>
       </div>
-      <div>
+      {/* <div>
         <Typography variant="subtitle" weight="extralight" className="mb-2 2xl:text-3xl!">
           {t("promoCode")}
         </Typography>
@@ -92,7 +92,7 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
         <Typography variant="body" weight="extralight">
           {tCommon("price", { price: 0.00, currency: "KWD" })}
         </Typography>
-      </div>
+      </div> */}
       {/* <div className="w-full flex justify-between">
         <Typography variant="body" weight="extralight">
           {t("estTaxes")}

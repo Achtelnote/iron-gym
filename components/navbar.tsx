@@ -11,6 +11,7 @@ import { Typography } from "./typography";
 import { useGetAllSearchParams } from "@/app/hooks/searchParams";
 import { Link } from "@/app/i18n/navigation";
 import { getCart } from "@/Utils/cartHelper";
+import useCart from "@/app/hooks/cart";
 
 export default function NavBar({ className }: { className: string}) {
   const t = useTranslations("NavBar");
@@ -94,7 +95,7 @@ function LanguageSelect({ className }: { className?: string; }) {
 }
 
 function NavCart({ scrolled }: { scrolled?: boolean; }) {
-  const cart = getCart();
+  const { cart } = useCart();
   // TODO: Implement cart functionality
   // Pressing cart icon should open a cart popup/modal
   // For now, it just redirects to the cart page
@@ -104,7 +105,7 @@ function NavCart({ scrolled }: { scrolled?: boolean; }) {
         <LuShoppingCart size={18} />
         {
           cart.items.length ? (
-            <div className={`absolute px-[6px] bottom-5 right-2 text-center text-xs rounded-full ${scrolled ? "bg-white text-[var(--primary)]" : "bg-[var(--primary)]"}`}>{cart.items.length}</div>
+            <div className={`absolute bottom-5 right-2 grid w-[18px] h-[18px] justify-center align-center items-center text-center text-xs rounded-full ${scrolled ? "bg-white text-[var(--primary)]" : "bg-[var(--primary)]"}`}>{cart.items.length}</div>
           ) : null
         }
         

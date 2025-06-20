@@ -180,9 +180,9 @@ function CheckoutForm() {
 
   const selectedState = watch("shippingDetails.state");
   const cities = useMemo(() => {
-    const state = states.find((s) => s.title.en == selectedState);
+    const state = states.find((s) => s.title[locale as "en" | "ar"] == selectedState);
     if (state) 
-      return state.areas.map((s) => ({ label: s[locale as "en" | "ar"], value: s.en }));
+      return state.areas.map((s) => ({ label: s[locale as "en" | "ar"], value: s[locale as "en" | "ar"] }));
     return [];
   }, [selectedState, locale])
 
@@ -195,11 +195,11 @@ function CheckoutForm() {
         <Typography variant="body1" weight="light">
           {t("personalDetails")}
         </Typography>
-        <div className="hd:flex gap-4 mt-4">
+        <div className="flex flex-col hd:flex-row gap-4 mt-4">
           <InputField block {...register("personalDetails.firstName")} label={t("firstName")} placeholder={t("placeholder.firstName")} />
           <InputField block {...register("personalDetails.lastName")} label={t("lastName")} placeholder={t("placeholder.lastName")} />
         </div>
-        <div className="hd:flex gap-4 mt-4">
+        <div className="flex flex-col hd:flex-row gap-4 mt-4">
           <InputField block {...register("personalDetails.email")} type="email" label={t("email")} placeholder={t("placeholder.email")} />
           <InputField required block {...register("personalDetails.phone")} type="tel" label={t("phoneNumber")} placeholder={t("placeholder.phoneNumber")} />
         </div>
@@ -225,7 +225,7 @@ function CheckoutForm() {
           {t("shippingAddress")}
         </Typography>
         <InputField block {...register("shippingDetails.address1")} label={t("address1")} placeholder={t("placeholder.address")} className="mt-4" />
-        <div className="hd:flex gap-4 mt-4">
+        <div className="flex flex-col hd:flex-row gap-4 mt-4">
           {/* <Select
             block
             label={t("city")}

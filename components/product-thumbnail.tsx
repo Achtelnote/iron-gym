@@ -17,7 +17,7 @@ export function ProductImage({
       alt={alt}
       width="10000"
       height="10000"
-      className={`object-cover aspect-[1/2] ${className}`}
+      className={`object-fit aspect-[1/2] ${className}`}
       style={style}
     />
   );
