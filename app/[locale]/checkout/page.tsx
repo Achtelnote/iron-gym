@@ -22,7 +22,7 @@ export default function CheckoutPage() {
   const t = useTranslations("checkout");
 
   return (
-    <div className="h-[calc(100%-75px)] hd:w-[80%] fhd:w-[var(--content-width)] mt-[80px] 2k:mb-auto m-auto grid grid-rows-[auto_1fr] overflow-hidden">
+    <div className="h-[calc(100%-75px)] hd:w-[80%] fhd:w-[var(--content-width)] mt-[80px] fhd:mb-auto m-auto grid grid-rows-[auto_1fr]">
       <Typography variant="title" weight="thin" className="hidden hd:block p-8 fhd:py-16 uppercase">
         {t("checkout")}
       </Typography>
@@ -242,7 +242,7 @@ function CheckoutForm() {
           {/* <InputField block {...register("shippingDetails.state")} label={t("state")} placeholder={t("placeholder.state")} /> */}
         </div>
       </div>
-      <div className="mt-10">
+      <div className="">
         <Typography className={`text-red-400! flex items-center gap-2 ${isError ? "" : "invisible"}`}>
           <MdError size={16} className="animate-pulse" />
           {t("orderFailed")}

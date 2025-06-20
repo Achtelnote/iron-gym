@@ -5,7 +5,7 @@ export default async function Footer() {
   // <footer className="block w-full grid-cols-[1fr_45px]">
   const t = await getTranslations("footer");
   return (
-    <footer className="block w-full">
+    <footer className="hidden hd:block w-full">
       {/* <div className="w-full bg-[var(--primary)]">
         <div className="w-[var(--content-width)] m-auto flex gap-20 2xl:gap-50 py-12">
           <div className="h-full flex flex-col gap-4">

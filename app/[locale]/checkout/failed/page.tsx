@@ -134,7 +134,7 @@ export default function TransactionFailedPage() {
   const locale = useLocale();
 
   return (
-    <div className="h-[calc(100%-75px)] hd:w-[var(--content-width)] m-auto flex flex-col items-between justify-center h-full">
+    <div className="h-[calc(100%-75px)] hd:w-[var(--content-width)] m-auto flex flex-col items-between justify-center">
       <div className="h-full flex flex-col hd:flex-row gap-4 items-center justify-between hd:justify-center mt-[80px] p-4 hd:p-0">
         <div className="flex flex-col gap-4 justify-center hd:gap-4 p-4 fhd:p-32 mobile:mt-12 hd:mt-0">
           <div>

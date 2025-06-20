@@ -40,7 +40,7 @@ export default function CartModal() {
   }, [cart, isInitRef, path]);
   
   return (
-    <div ref={modalRef} className={`hidden absolute ${locale == "en" ? "right-0" : "left-0"} w-[24rem] h-[27rem] z-5 grid-rows-[50px_1fr_50px] gap-2 p-4 bg-[var(--primary)] rounded-tl-3xl rounded-br-3xl align-center`}>
+    <div ref={modalRef} className={`hidden absolute right-0 w-[24rem] h-[27rem] z-5 grid-rows-[50px_1fr_50px] gap-2 p-4 bg-[var(--primary)] rounded-tl-3xl rounded-br-3xl align-center`}>
       <Link href="/cart">
         <Typography variant="subtitle" weight="light" uppercase className="text-center py-1 hover:bg-white/10 rounded-md">
           {tc("yourCart")}
