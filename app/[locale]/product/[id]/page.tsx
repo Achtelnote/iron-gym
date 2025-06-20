@@ -74,7 +74,7 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="h-[calc(100%-75px)] fhd:w-[var(--content-width)] m-auto mt-[75px] mobile:px-4 py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
+    <div className="h-[calc(100vh-75px)] overflow-hidden hd:w-[var(--content-width)] m-auto mt-[75px] mobile:px-4 py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
       <div className="hidden lg:block h-full w-full">
         <Suspense>
           <ImageGallery
@@ -96,7 +96,7 @@ export default function ProductPage() {
           </Typography>
           <div className="flex gap-2 items-center">
             <Typography variant="subtitle" weight="medium">
-              {t("price", { price: data.price || 0, currency: "KWD" })}
+              {t("price", { price: data.price || 0, currency: "kwd" })}
             </Typography>
             -
             <Typography variant="body">

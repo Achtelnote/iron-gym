@@ -98,7 +98,7 @@
   "Product": {
     "title": "صفحة المنتج",
     "description": "هذه هي صفحة المنتج حيث يمكنك العثور على تفاصيل حول منتجاتنا.",
-    "addToCart": "أضف إلى عربة التسوق",
+    "addToCart": "أضف إلى العربة",
     "addToCartShort": "أضف",
     "buyNow": "اشتر الآن",
     "price": "{price} {currency, select, kwd {د.ك} KWD {د.ك} usd {USD} other {$}}",

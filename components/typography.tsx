@@ -21,7 +21,7 @@ export const Typography: React.FC<TypographyProps> = ({
   const variantStyles = {
     heading: "text-3xl/9 hd:text-5xl/12 2k:text-6xl/15 ltr:tracking-widest",
     subheading: "text-sm hd:text-base 2k:text-lg ltr:hd:tracking-[0.80rem]",
-    title: "text-xl hd:text-3xl 2k:text-5xl ltr:tracking-widest",
+    title: "text-2xl hd:text-3xl 2k:text-5xl ltr:tracking-widest",
     title1: "text-xl hd:text-2xl 2k:text-3xl ltr:tracking-widest",
     title2: "text-lg hd:text-xl 2k:text-2xl ltr:tracking-widest",
     subtitle: "text-xl",

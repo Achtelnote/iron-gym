@@ -1,16 +1,15 @@
 'use client';
 
 import { usePathname, useRouter } from "next/navigation";
-import { LuChevronLeft, LuLanguages, LuMenu, LuShoppingCart } from "react-icons/lu";
+import { LuChevronLeft, LuLanguages, LuShoppingCart } from "react-icons/lu";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import Logo from "./logo";
 import CartModal from "./cart/cart-modal";
 import { Typography } from "./typography";
 import { useGetAllSearchParams } from "@/app/hooks/searchParams";
 import { Link } from "@/app/i18n/navigation";
-import { getCart } from "@/Utils/cartHelper";
 import useCart from "@/app/hooks/cart";
 
 export default function NavBar({ className }: { className: string}) {
@@ -18,7 +17,6 @@ export default function NavBar({ className }: { className: string}) {
   const currentPath = usePathname();
   const navBarRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
-  const locale = useLocale();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,12 +40,14 @@ export default function NavBar({ className }: { className: string}) {
   }, [ navBarRef ]);
 
   return (
-    <nav ref={navBarRef} className={` z-10 ${scrolled ? "fixed top-0 bg-[var(--primary)]" : ""} ${className}`}>
-      <div className={`lg:w-[var(--content-width)] flex ${locale == "ar" ? "flex-row-reverse" : ""} justify-between items-center sm:m-auto text-white`}>
-        <MenuButton />
-        <div className="hidden lg:flex">
-          <NavItem label={t("home")} active={currentPath == '/'} href="/" />
-          <NavItem label={t("about")} active={currentPath == '/#about'} href="#about" />
+    <nav ref={navBarRef} className={`z-10 ${scrolled ? "fixed top-0 bg-[var(--primary)]" : ""} ${className}`}>
+      <div className={`lg:w-[var(--content-width)] flex justify-between items-center sm:m-auto text-white`}>
+        <div className="">
+          <MenuButton />
+          <div className="hidden hd:flex">
+            <NavItem label={t("home")} active={currentPath == '/'} href="/" />
+            <NavItem label={t("about")} active={currentPath == '/#about'} href="#about" />
+          </div>
           {/* <NavItem label={t("contact")} active={currentPath == '/contact'} /> */}
         </div>
         <div className="absolute left-0 right-0 hidden sm:flex justify-center items-center pointer-events-none">
@@ -76,9 +76,9 @@ function LanguageSelect({ className }: { className?: string; }) {
   };
 
   return (
-    <div className="language-button w-full m-0 p-0">
+    <div className="relative language-button w-full m-0 p-0">
       <NavItem icon={<LuLanguages size={20} />} className={`block ${className}`} />
-      <div className="language-menu absolute hidden m-0 p-0 flex flex-col bg-[var(--primary)] text-center">
+      <div className="language-menu absolute hidden right-0 m-0 p-0 flex flex-col bg-[var(--primary)] text-center">
         <a href={newLocation("en")} className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent`}>
           <Typography uppercase>
             {t("english")}
@@ -115,11 +115,12 @@ function NavCart({ scrolled }: { scrolled?: boolean; }) {
   );
 }
 
-function MenuButton({ onClick }: { onClick?: () => void; }) {
+function MenuButton() {
   const location = usePathname();
   const nav = useRouter();
+  const path = location.match(/^\/(en|ar)(\/[^#].*)/);
 
-  if (location !== '/') {
+  if (path?.length) {
     return (
       <button className="lg:hidden p-6 hd:hover:bg-[var(--color-nav-item-hover)] cursor-pointer" onClick={nav.back}>
         <LuChevronLeft size={24} />
@@ -128,9 +129,10 @@ function MenuButton({ onClick }: { onClick?: () => void; }) {
   }
 
   return (
-    <Link href="#" className="lg:hidden py-6 px-4 hover:bg-[var(--color-nav-item-hover)]" onClick={onClick}>
-      <LuMenu size={24} />
-    </Link>
+    <div></div>
+    // <Link href="#" className="lg:hidden py-6 px-4 hover:bg-[var(--color-nav-item-hover)]" onClick={onClick}>
+    //   <LuMenu size={24} />
+    // </Link>
   );
 }
 

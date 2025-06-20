@@ -22,14 +22,14 @@ export default function CheckoutPage() {
   const t = useTranslations("checkout");
 
   return (
-    <div className="h-[calc(100%-75px)] hd:w-[80%] fhd:w-[var(--content-width)] mt-[80px] fhd:mb-auto m-auto grid grid-rows-[auto_1fr]">
+    <div className="w-[80%] h-full fhd:w-[var(--content-width)] flex flex-col m-auto pb-20 pt-[75px]">
       <Typography variant="title" weight="thin" className="hidden hd:block p-8 fhd:py-16 uppercase">
         {t("checkout")}
       </Typography>
       <Typography variant="title" weight="medium" className="hd:hidden text-2xl! p-8 uppercase">
         {t("checkout")}
       </Typography>
-      <div className="grid grid-cols-1 hd:grid-cols-[5fr_6fr] gap-8 fhd:gap-16 px-8 mb-20">
+      <div className="grow grid grid-cols-1 hd:grid-cols-[5fr_6fr] gap-8 fhd:gap-16">
         <CheckoutOrderSummary />
         <CheckoutForm />
       </div>
@@ -55,7 +55,7 @@ function CheckoutOrderSummary() {
       <Typography variant="subtitle" weight="light" className="text-2xl! fhd:text-3xl! mt-2">
         {t("orderSummary")}
       </Typography>
-      <div className="hd:max-h-[calc(100vh-70px)] fhd:max-h-[calc(100vh-440px)] 2k:max-h-[calc(100vh-670px)] 4k:max-h-auto flex flex-col gap-2 py-4 overflow-y-auto">
+      <div className="hd:max-h-[calc(100vh-400px)] fhd:max-h-[calc(100vh-650px)] 2k:max-h-auto flex flex-col gap-2 py-4 overflow-y-auto">
         {
           cart.items.map((i) => (
             <div key={`checkout-cart-item-${i.product.id}`} className="max-h-25   grid grid-cols-[80px_1fr] gap-2">
@@ -68,7 +68,7 @@ function CheckoutOrderSummary() {
                 </div>
                 <div className="flex justify-between">
                   <Typography capitalized>{t("total")}</Typography>
-                  <Typography>{tCommon("price", { price: i.product.price * i.quantity, currency: "KWD" })}</Typography>
+                  <Typography>{tCommon("price", { price: i.product.price * i.quantity, currency: "kwd" })}</Typography>
                 </div>
               </div>
             </div>
@@ -81,7 +81,7 @@ function CheckoutOrderSummary() {
           {t("total")}
         </Typography>
         <Typography variant="subtitle" weight="light" className="text-2xl! fhd:text-3xl!">
-          { tCommon("price", { price: totalPrice, currency: "KWD" }) }
+          { tCommon("price", { price: totalPrice, currency: "kwd" }) }
         </Typography>
       </div>
     </div>

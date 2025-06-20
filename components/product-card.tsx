@@ -34,8 +34,8 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
           </p>
         </div>
       </Link>
-      <Button className={`absolute hidden 2xl:block ${locale == "en" ? "right-0": "left-0"} bottom-0 text-sm uppercase cursor-pointer`} label={t("addToCart")} compact onClick={() => addToCart(product)} />
-      <Button className={`absolute block 2xl:hidden ${locale == "en" ? "right-0": "left-0"} bottom-0 text-xs uppercase cursor-pointer`} label={t("addToCartShort")} compact onClick={() => addToCart(product)} />
+      <Button className={`absolute block ${locale == "en" ? "right-0": "left-0"} bottom-0 text-sm uppercase cursor-pointer`} label={t("addToCart")} compact onClick={() => addToCart(product)} />
+      {/* <Button className={`absolute block 2xl:hidden ${locale == "en" ? "right-0": "left-0"} bottom-0 text-xs uppercase cursor-pointer`} label={t("addToCartShort")} compact onClick={() => addToCart(product)} /> */}
     </div>
   );
 }

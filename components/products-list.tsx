@@ -70,7 +70,7 @@ export default function ProductsList() {
           <div className="flex-1"></div>
           {/* <Button label="Filter" icon={<FaFilter size={12} />} className="h-8 py-0! justify-self-end self-center cursor-pointer text-sm" /> */}
         </SubNav>
-        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-6 lg:mt-8 px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 lg:gap-6 lg:mt-8 px-8">
           {
             filteredProducts
               .slice((page - 1) * itemsPerPage, page * itemsPerPage)

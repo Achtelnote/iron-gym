@@ -42,7 +42,6 @@
 }
 
 html {
-  height: auto;
   scrollbar-width: "thin";
   scrollbar-color: gray rgba(0.13, 0.13, 0.13, 0.3);
 }

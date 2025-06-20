@@ -51,15 +51,15 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className="h-full">
       <body
-        className={`h-full antialiased flex flex-col items-center scroll-smooth`}
+        className={`antialiased overflow-hidden h-full overflow-y-auto grid grid-rows-[1fr_50px] scroll-smooth`}
       >
         <NextIntlClientProvider>
           <ClientProviders>
             <NavBar className="absolute h-[75px] w-full" />
-            <main className="h-[calc(100vh-52px)] w-full lg:p-0">
+            <main className="4k:h-[calc(100vh-52px)] w-full">
               {children}
-              <Footer />
             </main>
+            <Footer />
           </ClientProviders>
         </NextIntlClientProvider>
       </body>

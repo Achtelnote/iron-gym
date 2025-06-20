@@ -1,6 +1,6 @@
 {
   "common": {
-    "price": "{price} {currency}",
+    "price": "{price} {currency, select, kwd {KWD} usd {USD} other {$}}",
     "retry": "Retry"
   },
   "checkout": {
@@ -100,7 +100,7 @@
     "addToCart": "Add to Cart",
     "addToCartShort": "Add",
     "buyNow": "Buy Now",
-    "price": "{price} {currency}",
+    "price": "{price} {currency, select, kwd {KWD} usd {USD} other {$}}",
     "stock": "{stock} in stock",
     "failedToLoad": "Failed to load products. Please try again later.",
     "retry": "Retry",

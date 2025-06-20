@@ -8,7 +8,6 @@ import { Link } from "@/app/i18n/navigation";
 import useCart from "@/app/hooks/cart";
 import Button from "@/components/button";
 import EmptyCart from "@/components/cart/empty-cart";
-import InputField from "@/components/form/input-field";
 import Logo from "@/components/logo";
 import { ProductImage } from "@/components/product-thumbnail";
 import { Typography } from "@/components/typography";
@@ -16,7 +15,6 @@ import { LineItem, Product } from "@/types";
 import { removeFromCart } from "@/Utils/cartHelper";
 
 // CSS eating shit.
-// TODO: Find way to limit height without using max-h-x
 
 export default function Cart() {
   const {
@@ -34,11 +32,11 @@ export default function Cart() {
   }
 
   return (
-    <div className="h-[calc(100%-75px)] w-full hd:w-[var(--content-width)] mt-[80px] m-auto hd:mb-[150px] 2xl:mb-auto grid grid-rows-[auto_1fr]">
+    <div className="h-[calc(100vh-75px)] w-full hd:w-[var(--content-width)] m-auto grid grid-rows-[auto_1fr] pt-[75px]">
       <Typography variant="title" weight="thin" className="px-8 lg:py-8 2xl:py-16" uppercase>
         {t("cart")}
       </Typography>
-      <div className="flex flex-col-reverse hd:flex-row gap-4 hd:gap-8 fhd:gap-16 2k:gap-32 px-4 mb-80">
+      <div className="flex flex-col-reverse hd:flex-row gap-4 hd:gap-8 fhd:gap-16 2k:gap-32 px-4 overflow-hidden">
         <Link href="/checkout" className="lg:hidden">
           <Button label={t("checkoutButton")} block className="cursor-pointer capitalized" />
         </Link>
@@ -67,9 +65,9 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
     <div className="hd:max-w-80 fhd:max-w-120 flex-1 flex flex-col gap-1 lg:gap-4 2xl:gap-8 p-4 lg:p-8 2xl:px-12 rounded-tl-4xl rounded-br-4xl bg-[var(--primary)]">
       <div>
         <Logo height="50px" className="w-35 xl:w-[250px]" />
-        <Typography variant="subtitle" weight="light" className="2xl:text-3xl! mt-2">
+        {/* <Typography variant="subtitle" weight="light" className="2xl:text-3xl! mt-2">
           {t("orderSummary")}
-        </Typography>
+        </Typography> */}
       </div>
       {/* <div>
         <Typography variant="subtitle" weight="extralight" className="mb-2 2xl:text-3xl!">
@@ -107,7 +105,7 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
           {t("total")}
         </Typography>
         <Typography variant="subtitle" weight="light" className="2xl:text-3xl!">
-          {tCommon("price", { price: total.toFixed(2), currency: "KWD" })}
+          {tCommon("price", { price: total.toFixed(2), currency: "kwd" })}
         </Typography>
       </div>
     </div>
@@ -119,11 +117,11 @@ function CartItems({ cartItems = [] }: { cartItems?: LineItem[]; onRemoveFromCar
   const tCommon = useTranslations("common");
 
   return (
-    <div className="w-full xl:h-full flex flex-col xl:flex-1">
+    <div className="w-full xl:h-full flex flex-col xl:flex-1 overflow-y-auto">
       <Typography weight="extralight" className="hidden lg:block capitalized text-xl! 2xl:text-3xl!">
         {t("yourCart")}
       </Typography>
-      <div className="w-full max-h-40 mobile-sm:max-h-80 mobile:max-h-100 fhd:max-h-140 2k:max-h-200 4k:max-h-400 flex flex-col xl:gap-4 xl:mt-8 xl:mb-8 overflow-y-auto">
+      <div className="w-full flex flex-col xl:gap-4 xl:mt-8 xl:mb-8 overflow-y-auto">
         { !cartItems.length ? (
           <div className="w-full p-12 flex justify-center">
             <Typography weight="light">
@@ -161,7 +159,7 @@ function CartItems({ cartItems = [] }: { cartItems?: LineItem[]; onRemoveFromCar
                       {t("totalPrice")}
                     </Typography>
                     <Typography variant="body" weight="light" className="text-end">
-                      {tCommon("price", { price: item.product.price * item.quantity, currency: "KWD" })}
+                      {tCommon("price", { price: item.product.price * item.quantity, currency: "kwd" })}
                     </Typography>
                   </div>
                 </div>

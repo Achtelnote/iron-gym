@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { LuTrash2 } from "react-icons/lu";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
