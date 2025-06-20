@@ -41,6 +41,7 @@ function CheckoutOrderSummary() {
   const t = useTranslations("checkout");
   const tCommon = useTranslations("common");
   const { cart } = useCart();
+  const locale = useLocale() as "ar" | "en";
   const totalPrice = useMemo(() => {
     let total = 0;
     cart.items.forEach(i => {
@@ -61,7 +62,7 @@ function CheckoutOrderSummary() {
             <div key={`checkout-cart-item-${i.product.id}`} className="max-h-25   grid grid-cols-[80px_1fr] gap-2">
               <ProductImage image={i.product.image} className="rounded-md! w-full max-h-[80px]" />
               <div className="overflow-hidden px-1">
-                <Typography className="truncate">{i.product.name}</Typography>
+                <Typography className="truncate">{i.product.name[locale]}</Typography>
                 <div className="flex justify-between mt-2">
                   <Typography capitalized>{t("quantity")}</Typography>
                   <Typography>{i.quantity}</Typography>
@@ -196,12 +197,12 @@ function CheckoutForm() {
           {t("personalDetails")}
         </Typography>
         <div className="flex flex-col hd:flex-row gap-4 mt-4">
-          <InputField block {...register("personalDetails.firstName")} label={t("firstName")} placeholder={t("placeholder.firstName")} />
-          <InputField block {...register("personalDetails.lastName")} label={t("lastName")} placeholder={t("placeholder.lastName")} />
+          <InputField block {...register("personalDetails.firstName")} label={t("firstName")} />
+          <InputField block {...register("personalDetails.lastName")} label={t("lastName")} />
         </div>
         <div className="flex flex-col hd:flex-row gap-4 mt-4">
-          <InputField block {...register("personalDetails.email")} type="email" label={t("email")} placeholder={t("placeholder.email")} />
-          <InputField required block {...register("personalDetails.phone")} type="tel" label={t("phoneNumber")} placeholder={t("placeholder.phoneNumber")} />
+          <InputField block {...register("personalDetails.email")} type="email" label={t("email")} />
+          <InputField required block {...register("personalDetails.phone")} type="tel" label={t("phoneNumber")} />
         </div>
       </div>
       {/* <div className="w-full mt-8">
@@ -224,7 +225,7 @@ function CheckoutForm() {
         <Typography variant="body1" weight="light">
           {t("shippingAddress")}
         </Typography>
-        <InputField block {...register("shippingDetails.address1")} label={t("address1")} placeholder={t("placeholder.address")} className="mt-4" />
+        <InputField block {...register("shippingDetails.address1")} label={t("address1")} className="mt-4" />
         <div className="flex flex-col hd:flex-row gap-4 mt-4">
           {/* <Select
             block
@@ -232,7 +233,7 @@ function CheckoutForm() {
             options={states.find((s) => s.title.en == selectedState)?.areas.map((s) => ({ key: s[locale as "en" | "ar"], value: s.en }))}
             {...register("shippingDetails.city")}
           /> */}
-          <InputField block {...register("shippingDetails.city")} label={t("city")} placeholder={t("placeholder.city")} dataList={cities} />
+          <InputField block {...register("shippingDetails.city")} label={t("city")} dataList={cities} />
           <Select
             block
             label={t("state")}

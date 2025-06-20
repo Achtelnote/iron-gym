@@ -34,7 +34,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section id="products" className="lg:w-[var(--content-width)] ml-auto mr-auto flex flex-col pb-20 hd:pb-0">
+      <section id="products" className="w-[80%] lg:w-[var(--content-width)] mx-auto flex flex-col pb-20 hd:pb-0">
         <Typography as="h2" variant="title" weight="extralight" className="my-12 2xl:my-24 text-center" uppercase>
           {t("equipment")}
         </Typography>

@@ -98,10 +98,10 @@
   "Product": {
     "title": "صفحة المنتج",
     "description": "هذه هي صفحة المنتج حيث يمكنك العثور على تفاصيل حول منتجاتنا.",
-    "addToCart": "أضف إلى العربة",
+    "addToCart": "أضف إلى السلة",
     "addToCartShort": "أضف",
     "buyNow": "اشتر الآن",
-    "price": "{price} {currency, select, kwd {د.ك} KWD {د.ك} usd {USD} other {$}}",
+    "price": "{price} {currency, select, kwd {د.ك} usd {USD} other {$}}",
     "stock": "{stock} في المخزون",
     "failedToLoad": "غير قادر على تحميل المنتجات. يرجى المحاولة لاحقاً.",
     "retry": "إعادة المحاولة",

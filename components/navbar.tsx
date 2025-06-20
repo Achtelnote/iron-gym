@@ -1,9 +1,9 @@
 'use client';
 
 import { usePathname, useRouter } from "next/navigation";
-import { LuChevronLeft, LuLanguages, LuShoppingCart } from "react-icons/lu";
+import { LuChevronLeft, LuChevronRight, LuLanguages, LuShoppingCart } from "react-icons/lu";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import Logo from "./logo";
 import CartModal from "./cart/cart-modal";
@@ -69,22 +69,27 @@ function LanguageSelect({ className }: { className?: string; }) {
   const t = useTranslations("NavBar");
   const location = usePathname();
   const { queryString } = useGetAllSearchParams();
+  const nav = useRouter();
 
   const newLocation = (locale: string) => {
     const newLoc = location.replace(/\/[a-z]{2}\/?/, `/${locale}/`);
     return `${newLoc}${queryString}`;
   };
 
+  const goTo = (href: string) => {
+    nav.replace(href);
+  }
+
   return (
     <div className="relative language-button w-full m-0 p-0">
       <NavItem icon={<LuLanguages size={20} />} className={`block ${className}`} />
       <div className="language-menu absolute hidden right-0 m-0 p-0 flex flex-col bg-[var(--primary)] text-center">
-        <a href={newLocation("en")} className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent`}>
+        <a className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent cursor-pointer select-none`} onClick={() => goTo(newLocation("en"))}>
           <Typography uppercase>
             {t("english")}
           </Typography>
         </a>
-        <a href={newLocation("ar")} className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent`}>
+        <a className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent cursor-pointer select-none`} onClick={() => goTo(newLocation("ar"))}>
           <Typography uppercase>
             {t("arabic")}
           </Typography>
@@ -119,11 +124,14 @@ function MenuButton() {
   const location = usePathname();
   const nav = useRouter();
   const path = location.match(/^\/(en|ar)(\/[^#].*)/);
+  const locale = useLocale();
 
   if (path?.length) {
     return (
       <button className="lg:hidden p-6 hd:hover:bg-[var(--color-nav-item-hover)] cursor-pointer" onClick={nav.back}>
-        <LuChevronLeft size={24} />
+        {
+          locale == "en" ? <LuChevronLeft size={24} /> : <LuChevronRight size={24} />
+        }
       </button>
     )
   }

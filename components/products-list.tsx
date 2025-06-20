@@ -15,21 +15,21 @@ export default function ProductsList() {
   const itemsPerPage = 12;
   const [page, setPage] = useState<number>(1);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const locale = useLocale();
+  const locale = useLocale() as "ar" | "en";
   const t = useTranslations("Product");
   
   const { data: products, error, isLoading, isPending, refetch, isError } = useQuery({
     queryKey: ["products", locale],
     queryFn: async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response = await getProducts(locale as any);
+      const response = await getProducts();
       return response.data;
     },
     initialData: []
   });
   
-  const categories = Array.from(new Set(products.map((p: Product) => p.category)));
-  const filteredProducts = products.filter((p: Product) => p.stock > 0 && (p.category === selectedCategory || selectedCategory === 'all'));
+  const categories = Array.from(new Set(products.map((p: Product) => p.category[locale])));
+  const filteredProducts = products.filter((p: Product) => p.stock > 0 && (p.category[locale] === selectedCategory || selectedCategory === 'all'));
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil((filteredProducts.length || 0) / itemsPerPage)) return;
@@ -70,7 +70,7 @@ export default function ProductsList() {
           <div className="flex-1"></div>
           {/* <Button label="Filter" icon={<FaFilter size={12} />} className="h-8 py-0! justify-self-end self-center cursor-pointer text-sm" /> */}
         </SubNav>
-        <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 lg:gap-6 lg:mt-8 px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 lg:gap-6 lg:mt-8">
           {
             filteredProducts
               .slice((page - 1) * itemsPerPage, page * itemsPerPage)

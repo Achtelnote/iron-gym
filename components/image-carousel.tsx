@@ -40,7 +40,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
         images.map((image, index) => (
           <div
             key={index}
-            className={`absolute ${images.length > 1 ? "w-13/14 ml-6" : "w-full"} h-full transition-translate duration-300 ease-in-out overflow-hidden px-2`}
+            className={`absolute ${images.length > 1 ? "w-13/14 ml-6" : "w-full"} h-full transition-translate duration-300 ease-in-out overflow-hidden`}
             style={{
               transform: `translateX(${(index) * 102}%)`,
             }}

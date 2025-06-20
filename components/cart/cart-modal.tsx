@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { LuTrash2 } from "react-icons/lu";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
@@ -23,18 +23,15 @@ export default function CartModal() {
   const modalRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
   const path = usePathname();
+  const locale = useLocale() as "ar" | "en";
 
   useEffect(() => {
     if (!isInitRef.current) return;
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
     if (!path.includes("/cart") && modalRef.current && cart.items.length > 0) {
       modalRef.current.classList.add("hd:grid!");
       timeoutRef.current = setTimeout(() => {
         modalRef.current?.classList.remove("hd:grid!");
-      }, 2000);
+      }, 1500);
     }
   }, [cart, isInitRef, path]);
   
@@ -59,11 +56,11 @@ export default function CartModal() {
                 <div className="max-h-[70px] flex flex-col justify-between">
                   <div className="h-[45px] overflow-hidden">
                     <Typography variant="body">
-                      {item.product.name} x {item.quantity}
+                      {item.product.name[locale]} x {item.quantity}
                     </Typography>
                   </div>
                   <Typography className="text-sm" weight="semibold">
-                    {tp("price", { price: item.product.price, currency: "KWD" })}
+                    {tp("price", { price: item.product.price, currency: "kwd" })}
                   </Typography>
                 </div>
                 <div className="hover:*:opacity-100 absolute w-full h-full cursor-pointer">

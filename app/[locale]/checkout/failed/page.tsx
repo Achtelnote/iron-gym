@@ -20,12 +20,12 @@ function TransactionDetails() {
   const formatter = useFormatter();
   const searchParams = useSearchParams();
 
-  const locale = useLocale();
+  const locale = useLocale() as "ar" | "en";
   const { data: products, isLoading } = useQuery({
     queryKey: ["products", locale],
     queryFn: async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response = await getProducts(locale as any);
+      const response = await getProducts();
       return response.data;
     },
     initialData: []
@@ -54,7 +54,7 @@ function TransactionDetails() {
             {t("transactionAmount")}
           </Typography>
           <Typography uppercase weight="extralight">
-            {tCommon("price", { price: data.Amount, currency: "KWD" })}
+            {tCommon("price", { price: data.Amount, currency: "kwd" })}
           </Typography>
         </div>
         <div className="flex justify-between">
@@ -97,10 +97,10 @@ function TransactionDetails() {
                   <Image src={p.image} width={175} height={175} alt="" className={`${locale == "en" ? "rounded-l-xl" : "rounded-r-xl"}`} />
                   <div className="px-4 py-2">
                     <Typography variant="body-sm">
-                      {p.name}
+                      {p.name[locale]}
                     </Typography>
                     <Typography variant="body-sm">
-                      {tCommon("price", { price: p.price, currency: "KWD" })}
+                      {tCommon("price", { price: p.price, currency: "kwd" })}
                     </Typography>
                   </div>
                   <Button className={`absolute ${locale == "en" ? "right-0 rounded-br-xl rounded-tl-xl" : "left-0 rounded-br-none rounded-tl-none rounded-tr-xl"} bottom-0 py-0! text-sm`} label="VIEW" />

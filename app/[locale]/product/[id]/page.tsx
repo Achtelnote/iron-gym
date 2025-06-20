@@ -26,7 +26,7 @@ export default function ProductPage() {
   const [quantity, setQuantity] = useState(1);
 
   const t = useTranslations("Product");
-  const locale = useLocale();
+  const locale = useLocale() as "ar" | "en";
   const {
     data,
     error,
@@ -35,7 +35,7 @@ export default function ProductPage() {
     queryKey: ["product", id],
     queryFn: async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { data, error } = await getProduct(id, locale as any);
+      const { data, error } = await getProduct(id);
       if (error) throw new Error(error);
       return data;
     },
@@ -47,7 +47,7 @@ export default function ProductPage() {
 
   if (isLoading) {
     return (
-      <div className="h-[calc(100%-75px)] fhd:w-[var(--content-width)] m-auto mt-[75px] mobile:px-4 py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
+      <div className="h-[calc(100%-75px)] h-full w-[80%] fhd:w-[var(--content-width)] m-auto mt-[75px] py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
         <div className="hidden lg:flex h-full w-full gap-4 align-center justify-center items-center">
             <div className={`grow h-full grid grid-rows-[1fr_120px] gap-2 overflow-hidden`}>
               <div className="w-full h-full overflow-hidden rounded-l-md animate-pulse bg-gray-600/40">
@@ -65,7 +65,7 @@ export default function ProductPage() {
 
   if (!data) {
     return (
-      <div className="h-[calc(100%-75px)] fhd:w-[var(--content-width)] m-auto mt-[75px] mobile:px-4 py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
+      <div className="h-[calc(100%-75px)] w-[80%] fhd:w-[var(--content-width)] m-auto mt-[75px] py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
         <div className="hidden lg:block h-full w-full">
           <Typography variant="title2" className="text-center">{t("notFound")}</Typography>
         </div>
@@ -74,7 +74,7 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="h-[calc(100vh-75px)] overflow-hidden hd:w-[var(--content-width)] m-auto mt-[75px] mobile:px-4 py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
+    <div className="h-[calc(100vh-75px)] overflow-hidden w-[80%] hd:w-[var(--content-width)] m-auto mt-[75px] py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
       <div className="hidden lg:block h-full w-full">
         <Suspense>
           <ImageGallery
@@ -92,7 +92,7 @@ export default function ProductPage() {
       <div className="lg:h-full w-full flex flex-col px-6 pt-4 lg:px-8 lg:py-4 gap-2">
         <div>
           <Typography variant="title1" weight="bold" className="mb-2">
-            {data.name}
+            {data.name[locale]}
           </Typography>
           <div className="flex gap-2 items-center">
             <Typography variant="subtitle" weight="medium">
@@ -104,7 +104,7 @@ export default function ProductPage() {
             </Typography>
           </div>
         </div>
-        <p className="hidden sm:block mt-4">{data.description}</p>
+        <p className="hidden sm:block mt-4">{data.description[locale]}</p>
         <br/>
         <Suspense>
           <QuantityInput

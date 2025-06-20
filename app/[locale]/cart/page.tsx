@@ -2,13 +2,12 @@
 
 import { useMemo } from "react";
 import { LuTrash2 } from "react-icons/lu";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/app/i18n/navigation";
 
 import useCart from "@/app/hooks/cart";
 import Button from "@/components/button";
 import EmptyCart from "@/components/cart/empty-cart";
-import Logo from "@/components/logo";
 import { ProductImage } from "@/components/product-thumbnail";
 import { Typography } from "@/components/typography";
 import { LineItem, Product } from "@/types";
@@ -32,11 +31,11 @@ export default function Cart() {
   }
 
   return (
-    <div className="h-[calc(100vh-75px)] w-full hd:w-[var(--content-width)] m-auto grid grid-rows-[auto_1fr] pt-[75px]">
-      <Typography variant="title" weight="thin" className="px-8 lg:py-8 2xl:py-16" uppercase>
+    <div className="h-[calc(100vh-75px)] w-[80%] hd:w-[var(--content-width)] m-auto grid grid-rows-[auto_1fr] pt-[75px]">
+      <Typography variant="title" weight="thin" className="lg:py-8 2xl:py-16" uppercase>
         {t("cart")}
       </Typography>
-      <div className="flex flex-col-reverse hd:flex-row gap-4 hd:gap-8 fhd:gap-16 2k:gap-32 px-4 overflow-hidden">
+      <div className="flex flex-col-reverse hd:flex-row gap-4 hd:gap-8 fhd:gap-16 2k:gap-32 overflow-hidden">
         <Link href="/checkout" className="lg:hidden">
           <Button label={t("checkoutButton")} block className="cursor-pointer capitalized" />
         </Link>
@@ -64,7 +63,7 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
   return (
     <div className="hd:max-w-80 fhd:max-w-120 flex-1 flex flex-col gap-1 lg:gap-4 2xl:gap-8 p-4 lg:p-8 2xl:px-12 rounded-tl-4xl rounded-br-4xl bg-[var(--primary)]">
       <div>
-        <Logo height="50px" className="w-35 xl:w-[250px]" />
+        {/* <Logo height="50px" className="w-35 xl:w-[250px]" /> */}
         {/* <Typography variant="subtitle" weight="light" className="2xl:text-3xl! mt-2">
           {t("orderSummary")}
         </Typography> */}
@@ -80,7 +79,7 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
           {t("subTotal")}
         </Typography>
         <Typography variant="subtitle" weight="light" className="2xl:text-2xl!">
-          {tCommon("price", { price: subTotal.toFixed(2), currency: "KWD" })}
+          {tCommon("price", { price: subTotal.toFixed(2), currency: "kwd" })}
         </Typography>
       </div>
       <div className="w-full flex justify-between">
@@ -88,7 +87,7 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
           {t("shipping")}
         </Typography>
         <Typography variant="body" weight="extralight">
-          {tCommon("price", { price: 0.00, currency: "KWD" })}
+          {tCommon("price", { price: 0.00, currency: "kwd" })}
         </Typography>
       </div> */}
       {/* <div className="w-full flex justify-between">
@@ -96,7 +95,7 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
           {t("estTaxes")}
         </Typography>
         <Typography variant="body" weight="extralight">
-          {tCommon("price", { price: 0.00, currency: "KWD" })}
+          {tCommon("price", { price: 0.00, currency: "kwd" })}
         </Typography>
       </div> */}
       <div className="grow"></div>
@@ -115,9 +114,10 @@ function OrderSummary({ cartItems = [] }: { cartItems?: LineItem[] }) {
 function CartItems({ cartItems = [] }: { cartItems?: LineItem[]; onRemoveFromCart?: (product: Product) => void }) {
   const t = useTranslations("cart");
   const tCommon = useTranslations("common");
+  const locale = useLocale() as "ar" | "en";
 
   return (
-    <div className="w-full xl:h-full flex flex-col xl:flex-1 overflow-y-auto">
+    <div className="w-ful h-full xl:h-full flex flex-col xl:flex-1 overflow-y-auto">
       <Typography weight="extralight" className="hidden lg:block capitalized text-xl! 2xl:text-3xl!">
         {t("yourCart")}
       </Typography>
@@ -139,7 +139,7 @@ function CartItems({ cartItems = [] }: { cartItems?: LineItem[]; onRemoveFromCar
               <div className="flex flex-col 2xl:px-2 py-4 2xl:gap-4 overflow-hidden">
                 <div className="flex gap-2">
                   <Typography variant="body1" className="truncate">
-                    {item.product.name}
+                    {item.product.name[locale]}
                   </Typography>
                   <Typography variant="body" className="min-w-10 hd:hidden self-center">
                     x {item.quantity}

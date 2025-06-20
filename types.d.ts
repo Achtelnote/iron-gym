@@ -18,11 +18,16 @@ export type ProductResponse = {
   hidden: boolean
 };
 
+export type ValueLocales = {
+  en: string;
+  ar: string;
+}
+
 export type Product = {
   id: number,
-  category: string,
-  name: string,
-  description: string,
+  category: ValueLocales,
+  name: ValueLocales,
+  description: ValueLocales,
   stock: number,
   price: number,
   image: string,
