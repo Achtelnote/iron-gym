@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import { useTranslations } from "next-intl";
+import { Link } from "@/app/i18n/navigation";
 
 import useCart from "@/app/hooks/cart";
 import Button from "@/components/button";

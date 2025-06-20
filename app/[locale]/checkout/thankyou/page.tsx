@@ -3,16 +3,16 @@
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useSearchParams, redirect } from "next/navigation";
 import { LuChevronLeft, LuChevronRight, LuLoaderCircle } from "react-icons/lu";
+import Image from "next/image";
+import { Suspense } from "react";
 
 import { getProducts } from "@/app/api-agent";
 import Logo from "@/components/logo";
 import { Typography } from "@/components/typography";
 import { TransactionResult } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import Button from "@/components/button";
-import Link from "next/link";
-import { Suspense } from "react";
+import { Link } from "@/app/i18n/navigation";
 
 function TransactionDetails() {
   const tCommon = useTranslations("common");

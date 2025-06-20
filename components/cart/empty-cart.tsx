@@ -1,5 +1,5 @@
+import { Link } from "@/app/i18n/navigation";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 
 export default function EmptyCart() {
   const t = useTranslations("cart");

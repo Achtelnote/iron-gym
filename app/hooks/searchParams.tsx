@@ -21,7 +21,7 @@ export function useGetAllSearchParams() {
 
     setParams({
       params: tmpParams,
-      queryString: tmpQueryString
+      queryString: tmpQueryString.length ? `?${tmpQueryString}` : ""
     });
 
   }, [searchParams]);

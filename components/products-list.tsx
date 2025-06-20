@@ -29,7 +29,7 @@ export default function ProductsList() {
   });
   
   const categories = Array.from(new Set(products.map((p: Product) => p.category)));
-  const filteredProducts = products.filter((p: Product) => p.category === selectedCategory || selectedCategory === 'all');
+  const filteredProducts = products.filter((p: Product) => p.stock > 0 && (p.category === selectedCategory || selectedCategory === 'all'));
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil((filteredProducts.length || 0) / itemsPerPage)) return;

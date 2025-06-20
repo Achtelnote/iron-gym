@@ -19,7 +19,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
         selectedThumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "center" });
       }
     }
-  }, [selectedImageIndex]);
+  }, [selectedImageIndex, images.length ]);
 
   const onTouchDown: TouchEventHandler = (event) => touchXRef.current = event.touches[0].clientX;
   const onTouchUp: TouchEventHandler = (event) => {

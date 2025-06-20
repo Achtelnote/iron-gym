@@ -11,8 +11,8 @@ import { TransactionResult } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Button from "@/components/button";
-import Link from "next/link";
 import { Suspense } from "react";
+import { Link } from "@/app/i18n/navigation";
 
 function TransactionDetails() {
   const tCommon = useTranslations("common");
@@ -118,7 +118,7 @@ function TransactionDetails() {
 function Reason() {
   const t = useTranslations("checkout.failed");
   const searchParams = useSearchParams();
-  
+
   const v = searchParams.get("v");
   if (!v) {
     redirect("/");

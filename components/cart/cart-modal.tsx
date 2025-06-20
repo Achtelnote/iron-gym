@@ -1,16 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { LuTrash2 } from "react-icons/lu";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { Link } from "@/app/i18n/navigation";
 
 import { ProductImage } from "../product-thumbnail";
 import { Typography } from "../typography";
 import Button from "../button";
 import { LineItem } from "@/types";
 import useCart from "@/app/hooks/cart";
-import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
 
 export default function CartModal() {
   const {
@@ -23,6 +23,7 @@ export default function CartModal() {
   const modalRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
   const path = usePathname();
+  const locale = useLocale();
 
   useEffect(() => {
     if (!isInitRef.current) return;
@@ -39,7 +40,7 @@ export default function CartModal() {
   }, [cart, isInitRef, path]);
   
   return (
-    <div ref={modalRef} className="hidden absolute right-0 w-[24rem] h-[27rem] z-5 grid-rows-[50px_1fr_50px] gap-2 p-4 bg-[var(--primary)] rounded-tl-3xl rounded-br-3xl align-center">
+    <div ref={modalRef} className={`hidden absolute ${locale == "en" ? "right-0" : "left-0"} w-[24rem] h-[27rem] z-5 grid-rows-[50px_1fr_50px] gap-2 p-4 bg-[var(--primary)] rounded-tl-3xl rounded-br-3xl align-center`}>
       <Link href="/cart">
         <Typography variant="subtitle" weight="light" uppercase className="text-center py-1 hover:bg-white/10 rounded-md">
           {tc("yourCart")}

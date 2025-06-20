@@ -2,29 +2,35 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { LuChevronLeft, LuLanguages, LuMenu, LuShoppingCart } from "react-icons/lu";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+
 import Logo from "./logo";
-import Link from "next/link";
 import CartModal from "./cart/cart-modal";
-import { Suspense, useEffect, useRef } from "react";
-import { useTranslations } from "next-intl";
 import { Typography } from "./typography";
 import { useGetAllSearchParams } from "@/app/hooks/searchParams";
+import { Link } from "@/app/i18n/navigation";
+import { getCart } from "@/Utils/cartHelper";
 
 export default function NavBar({ className }: { className: string}) {
+  const t = useTranslations("NavBar");
   const currentPath = usePathname();
   const navBarRef = useRef<HTMLDivElement>(null);
-  const t = useTranslations("NavBar");
+  const [scrolled, setScrolled] = useState(false);
+  const locale = useLocale();
 
   useEffect(() => {
     const handleScroll = () => {
       if (navBarRef.current) {
         const subBarNavY = navBarRef.current?.parentElement?.offsetTop || 0;
         if (window.scrollY > subBarNavY) {
-          navBarRef.current.classList.add("fixed", "top-0", "bg-[var(--primary)]!", "z-10");
-          navBarRef.current.children[navBarRef.current.children.length - 1].classList.add("lg:hidden!");
+          setScrolled(true);
+          // navBarRef.current.classList.add("fixed", "top-0", "bg-[var(--primary)]!", "z-10");
+          // navBarRef.current.children[navBarRef.current.children.length - 1].classList.add("lg:hidden!");
         } else {
-          navBarRef.current.classList.remove("fixed", "top-0", "bg-[var(--primary)]!", "z-10");
-          navBarRef.current.children[navBarRef.current.children.length - 1].classList.remove("lg:hidden!");
+          setScrolled(false);
+          // navBarRef.current.classList.remove("fixed", "top-0", "bg-[var(--primary)]!", "z-10");
+          // navBarRef.current.children[navBarRef.current.children.length - 1].classList.remove("lg:hidden!");
         }
       }
     };
@@ -35,8 +41,8 @@ export default function NavBar({ className }: { className: string}) {
   }, [ navBarRef ]);
 
   return (
-    <nav ref={navBarRef} className={`z-2 ${className}`}>
-      <div className="lg:w-[var(--content-width)] flex justify-between items-center sm:m-auto text-white">
+    <nav ref={navBarRef} className={` z-10 ${scrolled ? "fixed top-0 bg-[var(--primary)]" : ""} ${className}`}>
+      <div className={`lg:w-[var(--content-width)] flex ${locale == "ar" ? "flex-row-reverse" : ""} justify-between items-center sm:m-auto text-white`}>
         <MenuButton />
         <div className="hidden lg:flex">
           <NavItem label={t("home")} active={currentPath == '/'} href="/" />
@@ -50,44 +56,59 @@ export default function NavBar({ className }: { className: string}) {
           <Suspense>
             <LanguageSelect />
           </Suspense>
-          <NavCart />
+          <NavCart scrolled={scrolled} />
         </div>
       </div>
-      <div className="hidden lg:block top-[75px] max-h-[0.1rem] w-[var(--content-width)] m-auto size-18 rounded-full bg-linear-50 from-transparent from-5% via-white to-transparent to-95%"></div>
+      <div className={`hidden ${scrolled ? "lg:hidden" : "lg:block"} top-[75px] max-h-[0.1rem] w-[var(--content-width)] m-auto size-18 rounded-full bg-linear-50 from-transparent from-5% via-white to-transparent to-95%`}></div>
     </nav>
   );
 }
 
 function LanguageSelect({ className }: { className?: string; }) {
+  const t = useTranslations("NavBar");
   const location = usePathname();
   const { queryString } = useGetAllSearchParams();
+
   const newLocation = (locale: string) => {
     const newLoc = location.replace(/\/[a-z]{2}\/?/, `/${locale}/`);
-    return `${newLoc}?${queryString}`;
+    return `${newLoc}${queryString}`;
   };
-  const t = useTranslations("NavBar");
-  // const currentLocale = useLocale();
-  const ar = t("arabic");
-  const en = t("english");
 
   return (
     <div className="language-button w-full m-0 p-0">
       <NavItem icon={<LuLanguages size={20} />} className={`block ${className}`} />
       <div className="language-menu absolute hidden m-0 p-0 flex flex-col bg-[var(--primary)] text-center">
-        <NavItem label={en} href={newLocation('en')} />
-        <NavItem label={ar} href={newLocation('ar')} className={``} />
+        <a href={newLocation("en")} className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent`}>
+          <Typography uppercase>
+            {t("english")}
+          </Typography>
+        </a>
+        <a href={newLocation("ar")} className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent`}>
+          <Typography uppercase>
+            {t("arabic")}
+          </Typography>
+        </a>
       </div>
     </div>
   );
 }
 
-function NavCart() {
+function NavCart({ scrolled }: { scrolled?: boolean; }) {
+  const cart = getCart();
   // TODO: Implement cart functionality
   // Pressing cart icon should open a cart popup/modal
   // For now, it just redirects to the cart page
   return (
-    <div className="relative hover:*:grid">
-      <NavItem href="/cart" icon={<LuShoppingCart size={18} />} className="grid p-6!" />
+    <div className="relative hd:hover:*:grid">
+      <Link href="/cart" className={`grid py-6 px-4 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent`}>
+        <LuShoppingCart size={18} />
+        {
+          cart.items.length ? (
+            <div className={`absolute px-[6px] bottom-5 right-2 text-center text-xs rounded-full ${scrolled ? "bg-white text-[var(--primary)]" : "bg-[var(--primary)]"}`}>{cart.items.length}</div>
+          ) : null
+        }
+        
+      </Link>
       <CartModal />
     </div>
   );
@@ -131,7 +152,7 @@ function NavItem({
 }: NavItemProps) {
   // ${active ? "border-b-white" : ""}
   return (
-    <Link href={href} className={`py-6 px-2 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent ${active ? "underline underline-offset-8" : ""} ${className}`} onClick={onClick}>
+    <Link href={href} className={`py-6 px-4 2xl:py-6 2xl:px-4 text-sm 2xl:text-base border-2 hover:bg-[var(--color-nav-item-hover)]/30 border-transparent ${active ? "underline underline-offset-8" : ""} ${className}`} onClick={onClick}>
       {icon}
       <Typography uppercase>
         {label}

@@ -1,9 +1,9 @@
 import { unstable_ViewTransition as ViewTransition } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '@/app/i18n/navigation';
 
-import Link from "next/link";
 import { ProductImage } from "./product-thumbnail";
 import Button from './button';
-import { useLocale, useTranslations } from 'next-intl';
 import { Product } from '@/types';
 import { addToCart } from '@/Utils/cartHelper';
 
