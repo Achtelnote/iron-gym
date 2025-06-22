@@ -74,7 +74,7 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="h-[calc(100vh-75px)] overflow-hidden w-[80%] hd:w-[var(--content-width)] m-auto mt-[75px] py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
+    <div className="h-[calc(100vh-75px)] 2k:max-h-[80%] overflow-hidden w-[80%] hd:w-[var(--content-width)] m-auto mt-[75px] py-8 lg:py-16 2xl:py-48 flex flex-col lg:flex-row">
       <div className="hidden lg:block h-full w-full">
         <Suspense>
           <ImageGallery

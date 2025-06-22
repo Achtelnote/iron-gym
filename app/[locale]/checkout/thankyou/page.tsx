@@ -20,7 +20,7 @@ function TransactionDetails() {
   const formatter = useFormatter();
   const searchParams = useSearchParams();
 
-  const locale = useLocale();
+  const locale = useLocale() as "ar" | "en";
   const { data: products, isLoading } = useQuery({
     queryKey: ["products", locale],
     queryFn: async () => {
@@ -105,7 +105,7 @@ function TransactionDetails() {
                   <Image src={p.image} width={175} height={175} alt="" className={`${locale == "en" ? "rounded-l-xl" : "rounded-r-xl"}`} />
                   <div className="px-4 py-2">
                     <Typography variant="body-sm">
-                      {p.name}
+                      {p.name[locale]}
                     </Typography>
                     <Typography variant="body-sm">
                       {tCommon("price", { price: p.price, currency: "kwd" })}

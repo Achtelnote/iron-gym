@@ -56,10 +56,10 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           <ClientProviders>
             <NavBar className="absolute h-[75px] w-full" />
-            <main className="4k:h-[calc(100vh-52px)] w-full">
+            <main className="w-full">
               {children}
             </main>
-            <Footer />
+            {/* <Footer /> */}
           </ClientProviders>
         </NextIntlClientProvider>
       </body>

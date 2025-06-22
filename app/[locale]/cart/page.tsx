@@ -39,7 +39,7 @@ export default function Cart() {
         <Link href="/checkout" className="lg:hidden">
           <Button label={t("checkoutButton")} block className="cursor-pointer capitalized" />
         </Link>
-        <OrderSummary cartItems={cart.items} />
+        {/* <OrderSummary cartItems={cart.items} /> */}
         <CartItems cartItems={cart.items} onRemoveFromCart={removeFromCart} />
       </div>
     </div>
@@ -115,6 +115,11 @@ function CartItems({ cartItems = [] }: { cartItems?: LineItem[]; onRemoveFromCar
   const t = useTranslations("cart");
   const tCommon = useTranslations("common");
   const locale = useLocale() as "ar" | "en";
+  const total = useMemo(() => {
+    let tmp = 0;
+    cartItems.forEach((i: LineItem) => tmp += i.product.price);
+    return tmp;
+  }, [ cartItems ]);
 
   return (
     <div className="w-ful h-full xl:h-full flex flex-col xl:flex-1 overflow-y-auto">
@@ -131,44 +136,52 @@ function CartItems({ cartItems = [] }: { cartItems?: LineItem[]; onRemoveFromCar
         ) : "" }
         {
           cartItems.map((item: LineItem) => (
-            <div key={`cart-item-${item.product.id}`} className="w-full grid grid-cols-[30px_1fr] lg:grid-cols-[30px_100px_1fr] 2xl:grid-cols-[30px_180px_1fr] gap-4">
-              <div className="grid justify-center items-center rounded-md hover:*:text-[var(--primary)] hover:bg-white/10 cursor-pointer" onClick={() => removeFromCart(item.product)}>
-                <LuTrash2 />
-              </div>
-              <ProductImage image={`/images/${item.product.id}.avif`} className="hidden h-full lg:block max-h-33 w-full aspect-square rounded-md" />
-              <div className="flex flex-col 2xl:px-2 py-4 2xl:gap-4 overflow-hidden">
-                <div className="flex gap-2">
-                  <Typography variant="body1" className="truncate">
-                    {item.product.name[locale]}
-                  </Typography>
-                  <Typography variant="body" className="min-w-10 hd:hidden self-center">
-                    x {item.quantity}
-                  </Typography>
+            <>
+              <div key={`cart-item-${item.product.id}`} className="w-full grid grid-cols-[30px_1fr] lg:grid-cols-[30px_100px_1fr] 2xl:grid-cols-[30px_180px_1fr] gap-4">
+                <div className="grid justify-center items-center rounded-md hover:*:text-[var(--primary)] hover:bg-white/10 cursor-pointer" onClick={() => removeFromCart(item.product)}>
+                  <LuTrash2 />
                 </div>
-                <div className="flex flex-col 2xl:gap-2">
-                  <div className="hidden w-full hd:grid grid-cols-2">
-                    <Typography variant="body" weight="light" className="w-30">
-                      {t("quantity")}
+                <ProductImage image={`/images/${item.product.id}.avif`} className="hidden h-full lg:block max-h-33 w-full aspect-square rounded-md" />
+                <div className="flex flex-col 2xl:px-2 py-4 2xl:gap-4 overflow-hidden">
+                  <div className="flex gap-2">
+                    <Typography variant="body1" className="truncate">
+                      {item.product.name[locale]}
                     </Typography>
-                    <Typography variant="body" weight="light" className="text-end">
-                      {item.quantity}
+                    <Typography variant="body" className="min-w-10 hd:hidden self-center">
+                      &times; {item.quantity}
                     </Typography>
                   </div>
-                  <div className="w-full grid grid-cols-2">
-                    <Typography variant="body" weight="light">
-                      {t("totalPrice")}
-                    </Typography>
-                    <Typography variant="body" weight="light" className="text-end">
-                      {tCommon("price", { price: item.product.price * item.quantity, currency: "kwd" })}
-                    </Typography>
+                  <div className="flex flex-col 2xl:gap-2">
+                    <div className="hidden w-full hd:grid grid-cols-2">
+                      <Typography variant="body" weight="light" className="w-30">
+                        {t("quantity")}
+                      </Typography>
+                      <Typography variant="body" weight="light" className="text-end">
+                        {item.quantity}
+                      </Typography>
+                    </div>
+                    <div className="w-full grid grid-cols-2">
+                      <Typography variant="body" weight="light">
+                        {t("totalPrice")}
+                      </Typography>
+                      <Typography variant="body" weight="light" className="text-end">
+                        {tCommon("price", { price: item.product.price * item.quantity, currency: "kwd" })}
+                      </Typography>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+              <hr className="text-white/20"/>
+            </>
           ))
         }
       </div>
       <div className="hidden lg:block grow"></div>
+      <div className="w-full flex justify-end items-center py-4">
+        <Typography variant="title1" weight="light">
+          {t("total")} {tCommon("price", { price: total.toFixed(2), currency: "kwd" })}
+        </Typography>
+      </div>
       <Link href="/checkout" className="hidden lg:block">
         <Button label={t("checkoutButton")} block className="cursor-pointer" />
       </Link>

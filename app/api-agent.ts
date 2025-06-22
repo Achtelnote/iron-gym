@@ -1,7 +1,7 @@
 import { Product, ProductResponse } from "@/types";
 
 export async function getProducts() {
-  const response = await fetch(`/api/products/-1`);
+  const response = await fetch(`http://192.168.1.104:65000/products/-1`);
   if (!response.ok) {
     throw new Error("Failed to fetch products");
   }
@@ -23,7 +23,7 @@ export async function getProducts() {
 }
 
 export async function getProduct(id?: string) {
-  const response = await fetch(`/api/products/${id}`);
+  const response = await fetch(`http://192.168.1.104:65000/products/${id}`);
   if (!response.ok) {
     // throw new Error("Failed to fetch products");
     return { error: "Failed to fetch products" };

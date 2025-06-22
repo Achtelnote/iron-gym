@@ -28,11 +28,11 @@ export function getCart(): Cart{
 function setCart(newCart: Cart) {
   if (!isClient()) return false;
   try {
-    console.log(newCart);
+    // console.log(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
     return true;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return false;
   }
 }

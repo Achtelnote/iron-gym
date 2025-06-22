@@ -17,6 +17,7 @@ export default function NavBar({ className }: { className: string}) {
   const currentPath = usePathname();
   const navBarRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const isHome = currentPath.match(/^\/(en|ar)(\/[^#].*)/) == null;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +47,7 @@ export default function NavBar({ className }: { className: string}) {
           <MenuButton />
           <div className="hidden hd:flex">
             <NavItem label={t("home")} active={currentPath == '/'} href="/" />
-            <NavItem label={t("about")} active={currentPath == '/#about'} href="#about" />
+            { isHome ? (<NavItem label={t("about")} href="#about" />) : null }
           </div>
           {/* <NavItem label={t("contact")} active={currentPath == '/contact'} /> */}
         </div>
@@ -115,7 +116,7 @@ function NavCart({ scrolled }: { scrolled?: boolean; }) {
         }
         
       </Link>
-      <CartModal />
+      {/* <CartModal /> */}
     </div>
   );
 }
